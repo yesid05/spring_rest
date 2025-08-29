@@ -18,4 +18,8 @@ public class UserServ {
         return userDAO.getListUsers();
     }
 
+    public User findById(int id){
+        return userDAO.findById(id);
+    }
+
 }

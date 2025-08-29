@@ -13,13 +13,23 @@ public class UserDAO {
 
     private static List<User> USERS = List.of(
         new User(1, "Tony", "Stark", LocalDate.now(), BigDecimal.valueOf(200.2), true),
-        new User(1, "Steve", "Rogers", LocalDate.now(), BigDecimal.valueOf(100.2), true),
-        new User(1, "Natasha", "Romanoff", LocalDate.now(), BigDecimal.valueOf(100.2), true),
-        new User(1, "Wanda", "Maximoff", LocalDate.now(), BigDecimal.valueOf(200.2), true)
+        new User(2, "Steve", "Rogers", LocalDate.now(), BigDecimal.valueOf(100.2), true),
+        new User(3, "Natasha", "Romanoff", LocalDate.now(), BigDecimal.valueOf(100.2), true),
+        new User(4, "Wanda", "Maximoff", LocalDate.now(), BigDecimal.valueOf(200.2), true)
     );
 
     public List<User> getListUsers(){
         return USERS;
+    }
+
+    public User findById(int id){
+        return USERS
+            .stream()
+            .filter(
+                    (user) -> user.id()==id
+                )
+            .findFirst()
+            .orElse(null);
     }
 
 }
