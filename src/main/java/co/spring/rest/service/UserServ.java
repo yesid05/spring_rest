@@ -27,4 +27,8 @@ public class UserServ {
         return userDAO.findBySalary(salary);
     }
 
+    public User add(User user){
+        return userDAO.add(user);
+    }
+
 }
