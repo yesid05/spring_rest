@@ -1,5 +1,6 @@
 package co.spring.rest.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class UserServ {
 
     public User findById(int id){
         return userDAO.findById(id);
+    }
+
+    public List<User> findBySalary(BigDecimal salary){
+        return userDAO.findBySalary(salary);
     }
 
 }

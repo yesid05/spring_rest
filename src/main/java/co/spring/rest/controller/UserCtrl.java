@@ -1,5 +1,6 @@
 package co.spring.rest.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import co.spring.rest.service.UserServ;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -41,6 +44,19 @@ public class UserCtrl {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 
     }
+
+    @GetMapping("/user/search")
+    public ResponseEntity<List<User>> findBySalary(@RequestParam(required = true) String salary) {
+        
+        List<User> listUser = userServ.findBySalary(BigDecimal.valueOf(Double.parseDouble(salary)));
+
+        if(listUser.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        
+        return ResponseEntity.ok(listUser);
+
+    }
+    
     
 
 }

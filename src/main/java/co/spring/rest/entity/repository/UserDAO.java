@@ -32,4 +32,14 @@ public class UserDAO {
             .orElse(null);
     }
 
+    public List<User> findBySalary(BigDecimal salary){
+        return USERS
+            .stream()
+            .filter(
+                (user) -> user.salary().equals(salary)
+            )
+            .toList();
+            
+    }
+
 }
