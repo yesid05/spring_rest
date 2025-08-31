@@ -31,4 +31,8 @@ public class UserServ {
         return userDAO.add(user);
     }
 
+    public User update(int id, User user){
+        return userDAO.update(id, user);
+    }
+
 }

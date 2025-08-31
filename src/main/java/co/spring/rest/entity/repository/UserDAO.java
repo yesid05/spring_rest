@@ -52,6 +52,23 @@ public class UserDAO {
             
     }
 
-    
+    public User update(int id,User user){
+        USERS
+            .stream()
+            .filter(
+                (User u) -> 
+                    u.id() == id
+            )
+            .findFirst()
+            .ifPresent(
+                (User u) -> 
+                    USERS.set(USERS.indexOf(u), user)
+            );
+        
+        return user;
+        
+        
+    }
+
 
 }
