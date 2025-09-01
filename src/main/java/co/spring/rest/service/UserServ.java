@@ -2,6 +2,7 @@ package co.spring.rest.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,10 @@ public class UserServ {
 
     public User update(int id, User user){
         return userDAO.update(id, user);
+    }
+
+    public User updateItem(int id, Map<String,Object> user){
+        return userDAO.updateItem(id, user);
     }
 
 }

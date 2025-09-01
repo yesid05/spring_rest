@@ -21,12 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
-
-
-
 @RestController
 @RequestMapping("/api")
 public class UserCtrl {
@@ -82,7 +76,16 @@ public class UserCtrl {
         User u = userServ.update(id, user);
         return ResponseEntity.ok(u);
         
-    }   
+    }
+
+    @PatchMapping("/user/{id}")
+    public ResponseEntity<User> updateItem(@PathVariable int id,@RequestBody Map<String,Object> user){
+
+        User u = userServ.updateItem(id, user);
+        return ResponseEntity.ok(u);
+
+    }
+    
     
     
 

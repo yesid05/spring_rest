@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +28,7 @@ public class UserDAO {
         return USERS
             .stream()
             .filter(
-                    (user) -> user.id()==id
+                    (user) -> user.getId()==id
                 )
             .findFirst()
             .orElse(null);
@@ -37,7 +38,7 @@ public class UserDAO {
         return USERS
             .stream()
             .filter(
-                (user) -> user.salary().equals(salary)
+                (user) -> user.getSalary().equals(salary)
             )
             .toList();
             
@@ -57,7 +58,7 @@ public class UserDAO {
             .stream()
             .filter(
                 (User u) -> 
-                    u.id() == id
+                    u.getId() == id
             )
             .findFirst()
             .ifPresent(
@@ -68,6 +69,31 @@ public class UserDAO {
         return user;
         
         
+    }
+
+    public User updateItem(int id, Map<String,Object> userMap){
+
+        User user = this.findById(id);
+
+        System.out.println(user);
+
+        if(userMap.containsKey("name"))
+            user.setName((String)userMap.get("name"));
+
+        if(userMap.containsKey("lastName"))
+            user.setLastName((String)userMap.get("lastName"));
+        
+        if(userMap.containsKey("birthDay"))
+            user.setBirthDay( LocalDate.parse((String)userMap.get("birthDay")));
+
+        if(userMap.containsKey("salary"))
+            user.setSalary(BigDecimal.valueOf(Double.parseDouble(String.valueOf(userMap.get("salary")))));
+        
+        if(userMap.containsKey("active"))
+            user.setActive((Boolean)userMap.get("active"));
+        
+        return this.update(id, user);
+
     }
 
 
