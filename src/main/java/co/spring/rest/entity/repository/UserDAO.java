@@ -105,5 +105,15 @@ public class UserDAO {
         return u;
     }
 
+    public List<User> deleteBySalary(BigDecimal salary){
+        List<User> listUser = this.findBySalary(salary);
+
+        for (User user : listUser) {
+            USERS.remove(user);
+        }
+
+        return listUser;
+    }
+
 
 }

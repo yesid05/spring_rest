@@ -44,4 +44,8 @@ public class UserServ {
         return userDAO.delete(id);
     }
 
+    public List<User> deleteBySalary(BigDecimal salary){
+        return userDAO.deleteBySalary(salary);
+    }
+
 }

@@ -96,6 +96,18 @@ public class UserCtrl {
 
         return ResponseEntity.ok(u);
     }
+
+    @DeleteMapping("/user")
+    public ResponseEntity<List<User>> deleteBySalary(@RequestParam(required = true) String salary){
+        
+        List<User> listUser = userServ.deleteBySalary(BigDecimal.valueOf(Double.parseDouble(salary)));
+
+        if(listUser.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        
+        return ResponseEntity.ok(listUser);
+
+    }
     
     
 
