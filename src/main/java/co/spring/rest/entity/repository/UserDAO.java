@@ -96,5 +96,14 @@ public class UserDAO {
 
     }
 
+    public User delete(int id){
+        User u = this.findById(id);
+        if(u!=null){
+            USERS.remove(u);
+        }
+
+        return u;
+    }
+
 
 }

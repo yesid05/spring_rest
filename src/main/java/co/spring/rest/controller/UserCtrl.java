@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.spring.rest.entity.bo.User;
 import co.spring.rest.service.UserServ;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -86,6 +87,15 @@ public class UserCtrl {
 
     }
     
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<User> delete(@PathVariable int id){
+        User u = userServ.delete(id);
+
+        if(u==null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return ResponseEntity.ok(u);
+    }
     
     
 

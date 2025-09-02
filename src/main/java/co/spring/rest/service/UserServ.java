@@ -40,4 +40,8 @@ public class UserServ {
         return userDAO.updateItem(id, user);
     }
 
+    public User delete(int id){
+        return userDAO.delete(id);
+    }
+
 }
