@@ -9,6 +9,8 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import co.spring.rest.entity.bo.User;
+import co.spring.rest.error.CreatedError;
+import co.spring.rest.error.NotFoundError;
 
 @Repository
 public class UserDAO {
@@ -31,16 +33,22 @@ public class UserDAO {
                     (user) -> user.getId()==id
                 )
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
     }
 
     public List<User> findBySalary(BigDecimal salary){
-        return USERS
+        List<User> userList = USERS
             .stream()
             .filter(
                 (user) -> user.getSalary().equals(salary)
             )
             .toList();
+        
+        if(userList.isEmpty()){
+            throw new NotFoundError("List user not found", "List of cloud users not found by salary.", null);
+        }
+
+        return userList;
             
     }
 
@@ -49,7 +57,7 @@ public class UserDAO {
         if(USERS.add(user))
             return user;
         else
-            return null;
+            throw new CreatedError("User not created", "User cloud not created in the list.", null);
             
     }
 
