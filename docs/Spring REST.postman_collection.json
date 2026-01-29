@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "d83f1a97-193b-49ae-9727-c1c21368486d",
+		"name": "Spring REST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49062888",
+		"_collection_link": "https://yesid05-3670495.postman.co/workspace/yesid05's-Workspace~94c2d072-273d-4bf0-81dc-f6d17010ebfd/collection/49062888-d83f1a97-193b-49ae-9727-c1c21368486d?action=share&source=collection_link&creator=49062888"
+	},
+	"item": [
+		{
+			"name": "{{url}}user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}user",
+					"host": [
+						"{{url}}user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}user/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}user/1",
+					"host": [
+						"{{url}}user"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}user/search?salary=200.2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}user/search?salary=200.2",
+					"host": [
+						"{{url}}user"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "salary",
+							"value": "200.2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 5,\n    \"name\": \"Yesid\",\n    \"lastName\": \"Caicedo\",\n    \"birthDay\": \"2025-10-06\",\n    \"salary\": \"100.2\",\n    \"active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}user",
+					"host": [
+						"{{url}}user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}user/5",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 5,\n    \"name\": \"Yesid\",\n    \"lastName\": \"Añazco\",\n    \"birthDay\": \"2025-10-06\",\n    \"salary\": \"100.2\",\n    \"active\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}user/5",
+					"host": [
+						"{{url}}user"
+					],
+					"path": [
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}user/5",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Yesid05\",\n    \"salary\": \"200.2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}user/5",
+					"host": [
+						"{{url}}user"
+					],
+					"path": [
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}user/5",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}user/5",
+					"host": [
+						"{{url}}user"
+					],
+					"path": [
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}user?salary=100.2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}user?salary=100.2",
+					"host": [
+						"{{url}}user"
+					],
+					"query": [
+						{
+							"key": "salary",
+							"value": "100.2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8080/api/"
+		}
+	]
+}
