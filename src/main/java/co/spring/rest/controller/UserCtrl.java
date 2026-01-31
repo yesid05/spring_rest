@@ -23,20 +23,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserCtrl {
 
     @Autowired
     private UserServ userServ;
 
-    @GetMapping("/user")    
+    @GetMapping()    
     public ResponseEntity<List<User>> getListUsers(){
 
         List<User> listUsers = userServ.getListUsers();
         return ResponseEntity.ok(listUsers);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable int id) {
 
         User user = userServ.findById(id);
@@ -48,7 +48,7 @@ public class UserCtrl {
 
     }
 
-    @GetMapping("/user/search")
+    @GetMapping("/search")
     public ResponseEntity<List<User>> findBySalary(@RequestParam(required = true) String salary) {
         
         List<User> listUser = userServ.findBySalary(BigDecimal.valueOf(Double.parseDouble(salary)));
@@ -60,7 +60,7 @@ public class UserCtrl {
 
     }
 
-    @PostMapping("/user")
+    @PostMapping()
     public ResponseEntity<User> add(@RequestBody User user) {
         
         User u = userServ.add(user);
@@ -71,7 +71,7 @@ public class UserCtrl {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable int id, @RequestBody User user) {
         
         User u = userServ.update(id, user);
@@ -79,16 +79,16 @@ public class UserCtrl {
         
     }
 
-    @PatchMapping("/user/{id}")
-    public ResponseEntity<User> updateItem(@PathVariable int id,@RequestBody Map<String,Object> user){
+    @PatchMapping("{id}")
+    public ResponseEntity<User> updateItem(@PathVariable long id,@RequestBody Map<String,Object> user){
 
-        User u = userServ.updateItem(id, user);
-        return ResponseEntity.ok(u);
+        //User u = userServ.updateItem(id, user);
+        return ResponseEntity.badRequest().build();
 
     }
     
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<User> delete(@PathVariable int id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> delete(@PathVariable long id){
         User u = userServ.delete(id);
 
         if(u==null)
@@ -97,7 +97,7 @@ public class UserCtrl {
         return ResponseEntity.ok(u);
     }
 
-    @DeleteMapping("/user")
+    @DeleteMapping("")
     public ResponseEntity<List<User>> deleteBySalary(@RequestParam(required = true) String salary){
         
         List<User> listUser = userServ.deleteBySalary(BigDecimal.valueOf(Double.parseDouble(salary)));
