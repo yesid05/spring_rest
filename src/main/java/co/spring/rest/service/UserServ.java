@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.spring.rest.entity.bo.User;
+import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.entity.repository.IUserRepository;
 import co.spring.rest.error.CreatedError;
 import co.spring.rest.error.NotFoundError;
@@ -18,17 +19,32 @@ public class UserServ {
     @Autowired
     private IUserRepository iUserRepository;
 
-    public List<User> getListUsers(){
-        return iUserRepository.findAll();
+    public List<UserDto> getListUsers(){
+        return iUserRepository
+            .findAll()
+            .stream()
+            .map((user) -> {
+                return new UserDto(user.getId(), user.getName(), ""+user.getBirthDay(), ""+user.getSalary(), user.isActive());
+            })
+            .toList();
     }
 
-    public User findById(long id){
-        return iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
+    public UserDto findById(long id){
+        return iUserRepository
+            .findById(id)
+            .map(user -> new UserDto(user.getId(), user.getName(), ""+user.getBirthDay(), ""+user.getSalary(), user.isActive()))
+            .orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
     }
 
-    public List<User> findBySalary(BigDecimal salary){
+    public List<UserDto> findBySalary(BigDecimal salary){
 
-        List<User> userList = iUserRepository.findBySalary(salary);
+        List<UserDto> userList = iUserRepository
+            .findBySalary(salary)
+            .stream()
+            .map((user) -> {
+                return new UserDto(user.getId(), user.getName(), ""+user.getBirthDay(), ""+user.getSalary(), user.isActive());
+            })
+            .toList();
 
         if(userList.isEmpty() || userList == null)
             throw new NotFoundError("User not found","User cloud not find for salary in the list.",null);
@@ -36,7 +52,7 @@ public class UserServ {
         return userList;
     }
 
-    public User add(User user){
+    public UserDto add(User user){
 
         User aUser = null;
 
@@ -45,10 +61,10 @@ public class UserServ {
         } catch (Exception e) {
             throw new CreatedError("User not created", "User not created, error internal "+e.getMessage(), e);
         }
-        return aUser;
+        return new UserDto(aUser.getId(), aUser.getName(), ""+aUser.getBirthDay(), ""+aUser.getSalary(), aUser.isActive());
     }
 
-    public User update(long id, User user){
+    public UserDto update(long id, User user){
 
         User aUser = iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
 
@@ -64,7 +80,7 @@ public class UserServ {
             throw new CreatedError("User not update", "User not update, error internal "+e.getMessage(), e);
         }
 
-        return aUser;
+        return new UserDto(aUser.getId(), aUser.getName(), ""+aUser.getBirthDay(), ""+aUser.getSalary(), aUser.isActive());
     }
 
     /**
@@ -72,16 +88,16 @@ public class UserServ {
         return userDAO.updateItem(id, user);
     }
     */
-    public User delete(long id){
+    public UserDto delete(long id){
 
         User aUser = iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
 
         iUserRepository.delete(aUser);
 
-        return aUser;
+        return new UserDto(aUser.getId(), aUser.getName(), ""+aUser.getBirthDay(), ""+aUser.getSalary(), aUser.isActive());
     }
 
-    public List<User> deleteBySalary(BigDecimal salary){
+    public List<UserDto> deleteBySalary(BigDecimal salary){
 
         List<User> users = iUserRepository.findBySalary(salary);
 
@@ -89,7 +105,12 @@ public class UserServ {
             iUserRepository.delete(user);
         }
 
-        return users;
+        return users
+            .stream()
+            .map((user) -> {
+                return new UserDto(user.getId(), user.getName(), ""+user.getBirthDay(), ""+user.getSalary(), user.isActive());
+            })
+            .toList();
     }
 
 }
