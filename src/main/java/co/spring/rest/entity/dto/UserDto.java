@@ -7,6 +7,8 @@ public class UserDto {
 
     private String name;
 
+    private String lastName;
+
     private String birthDay;
 
     private String salary;
@@ -15,9 +17,10 @@ public class UserDto {
 
     
 
-    public UserDto(long id, String name, String birthDay, String salary, boolean active) {
+    public UserDto(long id, String name, String lastName, String birthDay, String salary, boolean active) {
         this.id = id;
         this.name = name;
+        this.lastName = lastName;
         this.birthDay = birthDay;
         this.salary = salary;
         this.active = active;
@@ -37,6 +40,14 @@ public class UserDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName(){
+        return lastName;
+    }
+
+    public void setLastName(String lastName){
+        this.lastName = lastName;
     }
 
     public String getBirthDay() {

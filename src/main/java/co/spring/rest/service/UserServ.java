@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.UserDto;
+import co.spring.rest.entity.mapper.UserMapper;
 import co.spring.rest.entity.repository.IUserRepository;
 import co.spring.rest.error.CreatedError;
 import co.spring.rest.error.NotFoundError;
@@ -19,21 +20,22 @@ public class UserServ {
     @Autowired
     private IUserRepository iUserRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public List<UserDto> getListUsers(){
         return iUserRepository
             .findAll()
             .stream()
-            .map((user) -> {
-                return new UserDto(user.getId(), user.getName(), ""+user.getBirthDay(), ""+user.getSalary(), user.isActive());
-            })
+            .map(userMapper::toUserDto)
             .toList();
     }
 
     public UserDto findById(long id){
-        return iUserRepository
-            .findById(id)
-            .map(user -> new UserDto(user.getId(), user.getName(), ""+user.getBirthDay(), ""+user.getSalary(), user.isActive()))
-            .orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
+
+        User aUser = iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
+
+        return userMapper.toUserDto(aUser);
     }
 
     public List<UserDto> findBySalary(BigDecimal salary){
@@ -41,9 +43,7 @@ public class UserServ {
         List<UserDto> userList = iUserRepository
             .findBySalary(salary)
             .stream()
-            .map((user) -> {
-                return new UserDto(user.getId(), user.getName(), ""+user.getBirthDay(), ""+user.getSalary(), user.isActive());
-            })
+            .map(userMapper::toUserDto)
             .toList();
 
         if(userList.isEmpty() || userList == null)
@@ -61,7 +61,7 @@ public class UserServ {
         } catch (Exception e) {
             throw new CreatedError("User not created", "User not created, error internal "+e.getMessage(), e);
         }
-        return new UserDto(aUser.getId(), aUser.getName(), ""+aUser.getBirthDay(), ""+aUser.getSalary(), aUser.isActive());
+        return userMapper.toUserDto(aUser);
     }
 
     public UserDto update(long id, User user){
@@ -80,7 +80,7 @@ public class UserServ {
             throw new CreatedError("User not update", "User not update, error internal "+e.getMessage(), e);
         }
 
-        return new UserDto(aUser.getId(), aUser.getName(), ""+aUser.getBirthDay(), ""+aUser.getSalary(), aUser.isActive());
+        return userMapper.toUserDto(aUser);
     }
 
     /**
@@ -94,7 +94,7 @@ public class UserServ {
 
         iUserRepository.delete(aUser);
 
-        return new UserDto(aUser.getId(), aUser.getName(), ""+aUser.getBirthDay(), ""+aUser.getSalary(), aUser.isActive());
+        return userMapper.toUserDto(aUser);
     }
 
     public List<UserDto> deleteBySalary(BigDecimal salary){
@@ -107,9 +107,7 @@ public class UserServ {
 
         return users
             .stream()
-            .map((user) -> {
-                return new UserDto(user.getId(), user.getName(), ""+user.getBirthDay(), ""+user.getSalary(), user.isActive());
-            })
+            .map(userMapper::toUserDto)
             .toList();
     }
 
