@@ -80,7 +80,7 @@ public class UserCtrl {
         
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<UserDto> updateItem(@PathVariable long id,@RequestBody Map<String,Object> user){
 
         //User u = userServ.updateItem(id, user);
