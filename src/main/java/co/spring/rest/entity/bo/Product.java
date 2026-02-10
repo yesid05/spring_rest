@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +34,8 @@ public class Product {
 
     private String img;
 
-    @Column(name = "id_category")
-    private long idCategoria;
+    @ManyToOne
+    @JoinColumn(name = "id_category")
+    private Category categoria;
 
 }

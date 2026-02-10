@@ -13,7 +13,8 @@ import co.spring.rest.entity.dto.ProductDto;
 public interface ProductMapper {
 
     @Mappings({
-        @Mapping(source = "releaseDate", target = "releaseDate", dateFormat = "yyyy-MM-dd")
+        @Mapping(source = "releaseDate", target = "releaseDate", dateFormat = "yyyy-MM-dd"),
+        @Mapping(source = "categoria", target = "categoryDto")
     })
     ProductDto toProductDto(Product product);
 

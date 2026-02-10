@@ -19,6 +19,17 @@ insert into customer (id, name, last_name, birth_day, salary, active) values (18
 insert into customer (id, name, last_name, birth_day, salary, active) values (19, 'Beckie', 'Verchambre', '2025-07-19', 316.26, true);
 insert into customer (id, name, last_name, birth_day, salary, active) values (20, 'Gertrud', 'Edgson', '2025-12-30', 927.98, false);
 
+insert into category (id, name, description) values (1, 'Documentary', 'sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus');
+insert into category (id, name, description) values (2, 'Comedy|Horror', 'primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor');
+insert into category (id, name, description) values (3, 'Drama', 'enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque');
+insert into category (id, name, description) values (4, 'Adventure|Animation|Children|Musical', 'in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus');
+insert into category (id, name, description) values (5, 'Action|Adventure|Fantasy|Sci-Fi', 'lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae');
+insert into category (id, name, description) values (6, 'Comedy', 'quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam');
+insert into category (id, name, description) values (7, 'Drama', 'congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in');
+insert into category (id, name, description) values (8, 'Documentary', 'maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur');
+insert into category (id, name, description) values (9, 'Musical', 'blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non');
+insert into category (id, name, description) values (10, 'Crime|Drama', 'ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at');
+
 insert into product (id, name, description, release_date, img, id_category) values (1, 'Earth vs. The Spider', 'ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet nunc viverra dapibus nulla', '2026-01-21', 'http://dummyimage.com/674x222.png/5fa2dd/ffffff', 9);
 insert into product (id, name, description, release_date, img, id_category) values (2, 'Public Enemy, The', 'ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi', '2025-03-07', 'http://dummyimage.com/1177x623.png/ff4444/ffffff', 3);
 insert into product (id, name, description, release_date, img, id_category) values (3, 'None But the Lonely Heart', 'vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla', '2025-04-29', 'http://dummyimage.com/545x366.png/dddddd/000000', 8);
@@ -219,14 +230,3 @@ insert into product (id, name, description, release_date, img, id_category) valu
 insert into product (id, name, description, release_date, img, id_category) values (198, 'King Arthur', 'semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel', '2025-04-21', 'http://dummyimage.com/1166x671.png/dddddd/000000', 9);
 insert into product (id, name, description, release_date, img, id_category) values (199, '''burbs, The', 'in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum', '2025-07-23', 'http://dummyimage.com/1235x589.png/ff4444/ffffff', 2);
 insert into product (id, name, description, release_date, img, id_category) values (200, 'Informer, The', 'lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum', '2025-05-10', 'http://dummyimage.com/1063x348.png/cc0000/ffffff', 4);
-
-insert into category (id, name, description) values (1, 'Documentary', 'sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus');
-insert into category (id, name, description) values (2, 'Comedy|Horror', 'primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor');
-insert into category (id, name, description) values (3, 'Drama', 'enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque');
-insert into category (id, name, description) values (4, 'Adventure|Animation|Children|Musical', 'in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus');
-insert into category (id, name, description) values (5, 'Action|Adventure|Fantasy|Sci-Fi', 'lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae');
-insert into category (id, name, description) values (6, 'Comedy', 'quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam');
-insert into category (id, name, description) values (7, 'Drama', 'congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in');
-insert into category (id, name, description) values (8, 'Documentary', 'maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur');
-insert into category (id, name, description) values (9, 'Musical', 'blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non');
-insert into category (id, name, description) values (10, 'Crime|Drama', 'ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at');

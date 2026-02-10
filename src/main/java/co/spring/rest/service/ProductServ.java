@@ -59,7 +59,7 @@ public class ProductServ {
         aProduct.setDescription(product.getDescription());
         aProduct.setReleaseDate(product.getReleaseDate());
         aProduct.setImg(product.getImg());
-        aProduct.setIdCategoria(product.getIdCategoria());
+        aProduct.setCategoria(product.getCategoria());
 
         try {
             iProductRepository.save(aProduct);
