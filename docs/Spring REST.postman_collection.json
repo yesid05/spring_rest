@@ -1,225 +1,442 @@
 {
-	"info": {
-		"_postman_id": "d83f1a97-193b-49ae-9727-c1c21368486d",
-		"name": "Spring REST",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "49062888",
-		"_collection_link": "https://yesid05-3670495.postman.co/workspace/yesid05's-Workspace~94c2d072-273d-4bf0-81dc-f6d17010ebfd/collection/49062888-d83f1a97-193b-49ae-9727-c1c21368486d?action=share&source=collection_link&creator=49062888"
-	},
-	"item": [
-		{
-			"name": "{{url}}user",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}user",
-					"host": [
-						"{{url}}user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "{{url}}user/1",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}user/1",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "{{url}}user/search?salary=200.2",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}user/search?salary=200.2",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						"search"
-					],
-					"query": [
-						{
-							"key": "salary",
-							"value": "200.2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "{{url}}user",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"id\": 5,\n    \"name\": \"Yesid\",\n    \"lastName\": \"Caicedo\",\n    \"birthDay\": \"2025-10-06\",\n    \"salary\": \"100.2\",\n    \"active\": true\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user",
-					"host": [
-						"{{url}}user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "{{url}}user/5",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"id\": 5,\n    \"name\": \"Yesid\",\n    \"lastName\": \"Añazco\",\n    \"birthDay\": \"2025-10-06\",\n    \"salary\": \"100.2\",\n    \"active\": false\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user/5",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "{{url}}user/5",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Yesid05\",\n    \"salary\": \"200.2\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user/5",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "{{url}}user/5",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user/5",
-					"host": [
-						"{{url}}user"
-					],
-					"path": [
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "{{url}}user?salary=100.2",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}user?salary=100.2",
-					"host": [
-						"{{url}}user"
-					],
-					"query": [
-						{
-							"key": "salary",
-							"value": "100.2"
-						}
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"requests": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"requests": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "url",
-			"value": "http://localhost:8080/api/"
-		}
-	]
+  "info": {
+    "_postman_id": "d83f1a97-193b-49ae-9727-c1c21368486d",
+    "name": "Spring REST",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49062888",
+    "_collection_link": "https://go.postman.co/collection/49062888-d83f1a97-193b-49ae-9727-c1c21368486d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "getList",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}user",
+              "host": [
+                "{{url}}user"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "findById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}user/10",
+              "host": [
+                "{{url}}user"
+              ],
+              "path": [
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "findBySalary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}user/search?salary=706.06",
+              "host": [
+                "{{url}}user"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "salary",
+                  "value": "706.06"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDay\": \"2025-10-06\",\n    \"salary\": \"100.2\",\n    \"active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}user",
+              "host": [
+                "{{url}}user"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 5,\n    \"name\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDay\": \"2025-10-06\",\n    \"salary\": \"100.2\",\n    \"active\": false\n}   ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}user/21",
+              "host": [
+                "{{url}}user"
+              ],
+              "path": [
+                "21"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateItem",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John\",\n    \"salary\": \"200.2\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}user/5",
+              "host": [
+                "{{url}}user"
+              ],
+              "path": [
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}user/21",
+              "host": [
+                "{{url}}user"
+              ],
+              "path": [
+                "21"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteBySalary",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}user?salary=706.06",
+              "host": [
+                "{{url}}user"
+              ],
+              "query": [
+                {
+                  "key": "salary",
+                  "value": "706.06"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "product",
+      "item": [
+        {
+          "name": "getList",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}product",
+              "host": [
+                "{{url}}product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "findById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}product/1",
+              "host": [
+                "{{url}}product"
+              ],
+              "path": [
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"201\",\n    \"name\": \"John Doe\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"http://dummyimage.com/674x222.png/5fa2dd/ffffff\",\n    \"category\": {\n        \"id\": \"1\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}product",
+              "host": [
+                "{{url}}product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"http://dummyimage.com/674x222.png/5fa2dd/ffffff\",\n    \"category\": {\n        \"id\": \"2\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}product/1",
+              "host": [
+                "{{url}}product"
+              ],
+              "path": [
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"201\",\n    \"name\": \"John Doe\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"active\",\n    \"id_category\": \"1\"\n}"
+            },
+            "url": {
+              "raw": "{{url}}product/1",
+              "host": [
+                "{{url}}product"
+              ],
+              "path": [
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "category",
+      "item": [
+        {
+          "name": "getList",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}category",
+              "host": [
+                "{{url}}category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "findById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}category/1",
+              "host": [
+                "{{url}}category"
+              ],
+              "path": [
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 11,\n    \"name\": \"Electronics\",\n    \"description\": \"All electronic products\"\n    \n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}category",
+              "host": [
+                "{{url}}category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Electronics\",\n    \"description\": \"All electronics\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}category/11",
+              "host": [
+                "{{url}}category"
+              ],
+              "path": [
+                "11"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 11,\n    \"name\": \"Electronics\",\n    \"description\": \"All electronic products\"\n    \n}"
+            },
+            "url": {
+              "raw": "{{url}}category/11",
+              "host": [
+                "{{url}}category"
+              ],
+              "path": [
+                "11"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": "http://localhost:8080/api/"
+    }
+  ]
 }
