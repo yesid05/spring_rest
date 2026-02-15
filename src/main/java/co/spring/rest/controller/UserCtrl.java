@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.service.UserServ;
 
@@ -33,7 +32,7 @@ public class UserCtrl {
     @GetMapping()    
     public ResponseEntity<List<UserDto>> getListUsers(){
 
-        List<UserDto> listUsers = userServ.getListUsers();
+        List<UserDto> listUsers = userServ.getList();
         return ResponseEntity.ok(listUsers);
     }
 
@@ -62,7 +61,7 @@ public class UserCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDto> add(@RequestBody User user) {
+    public ResponseEntity<UserDto> add(@RequestBody UserDto user) {
         
         UserDto aUser = userServ.add(user);
 
@@ -73,7 +72,7 @@ public class UserCtrl {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable int id, @RequestBody User user) {
+    public ResponseEntity<UserDto> update(@PathVariable int id, @RequestBody UserDto user) {
         
         UserDto u = userServ.update(id, user);
         return ResponseEntity.ok(u);

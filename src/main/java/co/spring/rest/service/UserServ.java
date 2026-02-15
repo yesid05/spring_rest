@@ -13,9 +13,10 @@ import co.spring.rest.entity.mapper.UserMapper;
 import co.spring.rest.entity.repository.IUserRepository;
 import co.spring.rest.error.CreatedError;
 import co.spring.rest.error.NotFoundError;
+import co.spring.rest.iservice.IUserServ;
 
 @Service
-public class UserServ {
+public class UserServ implements IUserServ{
 
     @Autowired
     private IUserRepository iUserRepository;
@@ -23,7 +24,8 @@ public class UserServ {
     @Autowired
     private UserMapper userMapper;
 
-    public List<UserDto> getListUsers(){
+    @Override
+    public List<UserDto> getList(){
         return iUserRepository
             .findAll()
             .stream()
@@ -31,6 +33,7 @@ public class UserServ {
             .toList();
     }
 
+    @Override
     public UserDto findById(long id){
 
         User aUser = iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
@@ -38,6 +41,7 @@ public class UserServ {
         return userMapper.toUserDto(aUser);
     }
 
+    @Override
     public List<UserDto> findBySalary(BigDecimal salary){
 
         List<UserDto> userList = iUserRepository
@@ -52,27 +56,31 @@ public class UserServ {
         return userList;
     }
 
-    public UserDto add(User user){
+    @Override
+    public UserDto add(UserDto userDto){
 
         User aUser = null;
 
         try {
-            aUser = iUserRepository.save(user);
+            aUser = iUserRepository.save(userMapper.toUser(userDto));
         } catch (Exception e) {
             throw new CreatedError("User not created", "User not created, error internal "+e.getMessage(), e);
         }
         return userMapper.toUserDto(aUser);
     }
 
-    public UserDto update(long id, User user){
+    @Override
+    public UserDto update(long id, UserDto userDto){
 
         User aUser = iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
+        
+        User u = userMapper.toUser(userDto);
 
-        aUser.setName(user.getName());
-        aUser.setLastName(user.getLastName());
-        aUser.setBirthDay(user.getBirthDay());
-        aUser.setSalary(user.getSalary());
-        aUser.setActive(user.isActive());
+        aUser.setName(u.getName());
+        aUser.setLastName(u.getLastName());
+        aUser.setBirthDay(u.getBirthDay());
+        aUser.setSalary(u.getSalary());
+        aUser.setActive(u.isActive());
 
         try {
             iUserRepository.save(aUser);
@@ -88,6 +96,8 @@ public class UserServ {
         return userDAO.updateItem(id, user);
     }
     */
+
+    @Override
     public UserDto delete(long id){
 
         User aUser = iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
@@ -97,6 +107,7 @@ public class UserServ {
         return userMapper.toUserDto(aUser);
     }
 
+    @Override
     public List<UserDto> deleteBySalary(BigDecimal salary){
 
         List<User> users = iUserRepository.findBySalary(salary);
