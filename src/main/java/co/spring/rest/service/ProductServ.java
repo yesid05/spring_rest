@@ -11,9 +11,10 @@ import co.spring.rest.entity.mapper.ProductMapper;
 import co.spring.rest.entity.repository.IProductRepository;
 import co.spring.rest.error.CreatedError;
 import co.spring.rest.error.NotFoundError;
+import co.spring.rest.iservice.IProductServ;
 
 @Service
-public class ProductServ {
+public class ProductServ implements IProductServ{
 
     @Autowired
     private IProductRepository iProductRepository;
@@ -21,7 +22,8 @@ public class ProductServ {
     @Autowired
     private ProductMapper productMapper;
 
-    public List<ProductDto> getListProduct(){
+    @Override
+    public List<ProductDto> getList(){
         return iProductRepository
             .findAll()
             .stream()
@@ -29,6 +31,7 @@ public class ProductServ {
             .toList();
     }
 
+    @Override
     public ProductDto findById(long id){
         
         Product aProduct = iProductRepository.findById(id).orElseThrow(() -> new NotFoundError("Product not found", "Product cloud not find in the list", null));
@@ -37,12 +40,13 @@ public class ProductServ {
 
     }
     
-    public ProductDto add(Product product){
+    @Override
+    public ProductDto add(ProductDto productDto){
 
         Product aProduct = null;
 
         try {
-            aProduct = iProductRepository.save(product);
+            aProduct = iProductRepository.save(productMapper.toProduct(productDto));
         } catch (Exception e) {
             throw new CreatedError("Product not created", "Product not created, error internal "+e.getMessage(), e);
         }
@@ -51,15 +55,18 @@ public class ProductServ {
 
     }
 
-    public ProductDto update(long id, Product product){
+    @Override
+    public ProductDto update(long id, ProductDto productDto){
 
         Product aProduct = iProductRepository.findById(id).orElseThrow(() -> new NotFoundError("Product not found", "Product cloud not find in the list", null));
 
-        aProduct.setName(product.getName());
-        aProduct.setDescription(product.getDescription());
-        aProduct.setReleaseDate(product.getReleaseDate());
-        aProduct.setImg(product.getImg());
-        aProduct.setCategoria(product.getCategoria());
+        Product p = productMapper.toProduct(productDto);
+
+        aProduct.setName(p.getName());
+        aProduct.setDescription(p.getDescription());
+        aProduct.setReleaseDate(p.getReleaseDate());
+        aProduct.setImg(p.getImg());
+        aProduct.setCategory(p.getCategory());
 
         try {
             iProductRepository.save(aProduct);
@@ -71,6 +78,7 @@ public class ProductServ {
 
     }
 
+    @Override
     public ProductDto delete(long id){
 
         Product aProduct = iProductRepository.findById(id).orElseThrow(() -> new NotFoundError("Product not found", "Product cloud not find in the list", null));

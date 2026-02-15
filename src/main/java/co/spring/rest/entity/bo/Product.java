@@ -36,6 +36,6 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "id_category")
-    private Category categoria;
+    private Category category;
 
 }

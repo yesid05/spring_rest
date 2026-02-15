@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.spring.rest.entity.bo.Category;
 import co.spring.rest.entity.dto.CategoryDto;
 import co.spring.rest.service.CategoryServ;
 
@@ -28,7 +27,7 @@ public class CategoryCtrl {
     @GetMapping
     public ResponseEntity<?> getListCategory(){
         
-        List<CategoryDto> listCategory = categoryServ.getListCategory();
+        List<CategoryDto> listCategory = categoryServ.getList();
 
         return ResponseEntity.ok(listCategory);
 
@@ -46,7 +45,7 @@ public class CategoryCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<?> add(@RequestBody Category category){
+    public ResponseEntity<?> add(@RequestBody CategoryDto category){
 
         CategoryDto aCategoryDto = categoryServ.add(category);
 
@@ -57,7 +56,7 @@ public class CategoryCtrl {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody Category category){
+    public ResponseEntity<?> update(@PathVariable long id, @RequestBody CategoryDto category){
 
         CategoryDto aCategoryDto = categoryServ.update(id, category);
 

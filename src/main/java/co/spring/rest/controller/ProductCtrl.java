@@ -3,7 +3,6 @@ package co.spring.rest.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.spring.rest.entity.bo.Product;
 import co.spring.rest.entity.dto.ProductDto;
 import co.spring.rest.service.ProductServ;
 
@@ -29,7 +28,7 @@ public class ProductCtrl {
     @GetMapping
     public ResponseEntity<List<ProductDto>> getListProduct() {
 
-        List<ProductDto> listProduct = productServ.getListProduct();
+        List<ProductDto> listProduct = productServ.getList();
 
         return ResponseEntity.ok(listProduct);
     }
@@ -46,7 +45,7 @@ public class ProductCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<ProductDto> add(@RequestBody Product product) {
+    public ResponseEntity<ProductDto> add(@RequestBody ProductDto product) {
         ProductDto aProductDto = productServ.add(product);
 
         if(aProductDto == null)
@@ -56,7 +55,7 @@ public class ProductCtrl {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> update(@PathVariable long id, @RequestBody Product product) {
+    public ResponseEntity<ProductDto> update(@PathVariable long id, @RequestBody ProductDto product) {
         
         ProductDto aProductDto = productServ.update(id, product);
 

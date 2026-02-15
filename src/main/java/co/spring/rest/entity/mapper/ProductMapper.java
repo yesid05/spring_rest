@@ -14,7 +14,7 @@ public interface ProductMapper {
 
     @Mappings({
         @Mapping(source = "releaseDate", target = "releaseDate", dateFormat = "yyyy-MM-dd"),
-        @Mapping(source = "categoria", target = "categoryDto")
+        @Mapping(source = "category", target = "categoryDto")
     })
     ProductDto toProductDto(Product product);
 

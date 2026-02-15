@@ -11,9 +11,10 @@ import co.spring.rest.entity.mapper.CategoryMapper;
 import co.spring.rest.entity.repository.ICategoryRepository;
 import co.spring.rest.error.CreatedError;
 import co.spring.rest.error.NotFoundError;
+import co.spring.rest.iservice.ICategoryServ;
 
 @Service
-public class CategoryServ {
+public class CategoryServ implements ICategoryServ{
 
     @Autowired
     private ICategoryRepository iCategoryRepository;
@@ -21,7 +22,8 @@ public class CategoryServ {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public List<CategoryDto> getListCategory(){
+    @Override
+    public List<CategoryDto> getList(){
         return iCategoryRepository
             .findAll()
             .stream()
@@ -29,18 +31,20 @@ public class CategoryServ {
             .toList();
     }
 
+    @Override
     public CategoryDto findById(long id){
         Category aCategory = iCategoryRepository.findById(id).orElseThrow(() -> new NotFoundError("Category not found", "Category cloud not find int the list", null));
 
         return categoryMapper.toCategoryDto(aCategory);
     }
 
-    public CategoryDto add(Category category){
+    @Override
+    public CategoryDto add(CategoryDto categoryDto){
 
         Category aCategory = null;
 
         try {
-            aCategory = iCategoryRepository.save(category);
+            aCategory = iCategoryRepository.save(categoryMapper.toCategory(categoryDto));
         } catch (Exception e) {
             throw new CreatedError("Category not created", "Category not created, error internal", e);
         }
@@ -49,12 +53,15 @@ public class CategoryServ {
         
     }
 
-    public CategoryDto update(long id, Category category){
+    @Override
+    public CategoryDto update(long id, CategoryDto categoryDto){
 
         Category aCategory = iCategoryRepository.findById(id).orElseThrow(() -> new NotFoundError("Category not found", "Category cloud not find int the list", null));
 
-        aCategory.setName(category.getName());
-        aCategory.setDescription(category.getDescription());
+        Category c = categoryMapper.toCategory(categoryDto);
+
+        aCategory.setName(c.getName());
+        aCategory.setDescription(c.getDescription());
 
         try {
             iCategoryRepository.save(aCategory);
@@ -66,6 +73,7 @@ public class CategoryServ {
 
     }
 
+    @Override
     public CategoryDto delete(long id){
 
         Category aCategory = iCategoryRepository.findById(id).orElseThrow(() -> new NotFoundError("Category not found", "Category cloud not find int the list", null));
