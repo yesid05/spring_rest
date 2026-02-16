@@ -436,7 +436,11 @@
   "variable": [
     {
       "key": "url",
+<<<<<<< HEAD
       "value": "http://localhost:8080/api/"
+=======
+      "value": ""
+>>>>>>> 39651b0 (Agregando documentación con postman)
     }
   ]
 }
