@@ -16,9 +16,32 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}user",
+              "raw": "{{url}}user?sort=name",
               "host": [
                 "{{url}}user"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "2",
+                  "disabled": true
+                },
+                {
+                  "key": "pageSize",
+                  "value": "7",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "name",
+                  "type": "text"
+                },
+                {
+                  "key": "direction",
+                  "value": "desc",
+                  "type": "text",
+                  "disabled": true
+                }
               ]
             }
           },
@@ -205,9 +228,27 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}product",
+              "raw": "{{url}}product?pageNumber=33&pageSize=6&sort=category&direction=asc",
               "host": [
                 "{{url}}product"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "33"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "6"
+                },
+                {
+                  "key": "sort",
+                  "value": "category"
+                },
+                {
+                  "key": "direction",
+                  "value": "asc"
+                }
               ]
             }
           },
@@ -311,9 +352,29 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}category",
+              "raw": "{{url}}category?pageNumber=0&pageSize=5&direction=asc",
               "host": [
                 "{{url}}category"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "0"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "5"
+                },
+                {
+                  "key": "sort",
+                  "value": "name",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "direction",
+                  "value": "asc"
+                }
               ]
             }
           },
@@ -437,10 +498,14 @@
     {
       "key": "url",
 <<<<<<< HEAD
+<<<<<<< HEAD
       "value": "http://localhost:8080/api/"
 =======
       "value": ""
 >>>>>>> 39651b0 (Agregando documentación con postman)
+=======
+      "value": "http://localhost:8080/api/"
+>>>>>>> 6b11fab (Paginación y ordenamiento en API Rest)
     }
   ]
 }

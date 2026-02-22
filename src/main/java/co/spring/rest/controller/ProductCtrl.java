@@ -1,12 +1,14 @@
 package co.spring.rest.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.spring.rest.entity.dto.ProductDto;
 import co.spring.rest.service.ProductServ;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,11 +28,11 @@ public class ProductCtrl {
     private ProductServ productServ;
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getListProduct() {
+    public ResponseEntity<Map<String, Object>> getListProduct(@RequestParam(required = false) Integer pageNumber,@RequestParam(required = false) Integer pageSize, @RequestParam(required = false) String direction,@RequestParam(required = false) String sort) {
 
-        List<ProductDto> listProduct = productServ.getList();
+        Map<String, Object> mapProductDto = productServ.getList(pageNumber,pageSize,sort,direction);
 
-        return ResponseEntity.ok(listProduct);
+        return ResponseEntity.ok(mapProductDto);
     }
 
     @GetMapping("/{id}")

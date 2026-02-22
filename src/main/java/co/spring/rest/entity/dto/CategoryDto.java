@@ -1,6 +1,9 @@
 package co.spring.rest.entity.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
@@ -21,5 +24,9 @@ public class CategoryDto {
 
     @JsonInclude(value = Include.NON_NULL)
     private String description;
+
+    @JsonProperty("products")
+    @JsonInclude(value = Include.NON_NULL)
+    private List<ProductDto> productDtos;
 
 }

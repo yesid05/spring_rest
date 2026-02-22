@@ -1,6 +1,7 @@
 package co.spring.rest.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.spring.rest.entity.dto.CategoryDto;
@@ -25,11 +27,11 @@ public class CategoryCtrl {
     private CategoryServ categoryServ;
 
     @GetMapping
-    public ResponseEntity<?> getListCategory(){
+    public ResponseEntity<?> getListCategory(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize, @RequestParam(required = false) String direction, @RequestParam(required = false) String sort){
         
-        List<CategoryDto> listCategory = categoryServ.getList();
+        Map<String, Object> mapCategoryDto = categoryServ.getList(pageNumber, pageSize, sort, direction);
 
-        return ResponseEntity.ok(listCategory);
+        return ResponseEntity.ok(mapCategoryDto);
 
     }
 

@@ -1,8 +1,15 @@
 package co.spring.rest.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import co.spring.rest.entity.bo.Product;
@@ -11,6 +18,7 @@ import co.spring.rest.entity.mapper.ProductMapper;
 import co.spring.rest.entity.repository.IProductRepository;
 import co.spring.rest.error.CreatedError;
 import co.spring.rest.error.NotFoundError;
+import co.spring.rest.iservice.ICrudServ;
 import co.spring.rest.iservice.IProductServ;
 
 @Service
@@ -23,12 +31,54 @@ public class ProductServ implements IProductServ{
     private ProductMapper productMapper;
 
     @Override
-    public List<ProductDto> getList(){
-        return iProductRepository
-            .findAll()
-            .stream()
-            .map(productMapper::toProductDto)
-            .toList();
+    public Map<String, Object> getList(Integer pageNumber, Integer pageSize, String sort, String direction){ 
+        
+        Map<String,Object> mapProductDto = new HashMap<>();
+        List<ProductDto> listProductDto = null;
+
+        if(sort == null)
+            sort = "id";
+
+        if(direction == null)
+            direction = Direction.ASC.name();
+        
+        Direction d = (direction.equalsIgnoreCase(Direction.DESC.name())) ? Direction.DESC : Direction.ASC;
+
+        if(pageNumber == null || pageSize == null){
+
+            listProductDto = iProductRepository
+                .findAll(Sort.by(d, sort))
+                .stream()
+                .map(productMapper::toProductDto)
+                .toList();
+            
+            mapProductDto.put(ICrudServ.CONTENT, listProductDto);
+
+        }else{
+
+            Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(d, sort));
+            Page<Product> productPage = iProductRepository.findAll(pageable);
+
+            listProductDto = productPage
+                .stream()
+                .map(productMapper::toProductDto)
+                .toList();
+
+            mapProductDto.put(ICrudServ.CONTENT, listProductDto);
+            mapProductDto.put(ICrudServ.NUMBER_PAGE, productPage.getNumber());
+            mapProductDto.put(ICrudServ.SIZE_PAGE, productPage.getSize());
+            mapProductDto.put(ICrudServ.NUMBER_OF_ELEMENTS, productPage.getNumberOfElements());
+            mapProductDto.put(ICrudServ.TOTAL_PAGE, productPage.getTotalPages());
+            mapProductDto.put(ICrudServ.TOTAL_ELEMENTS, productPage.getTotalElements());
+            mapProductDto.put(ICrudServ.IS_FIRST, productPage.isFirst());
+            mapProductDto.put(ICrudServ.IS_LAST, productPage.isLast());
+            mapProductDto.put(ICrudServ.IS_EMPTY, productPage.isEmpty());
+
+        }
+
+        return mapProductDto;
+
+
     }
 
     @Override

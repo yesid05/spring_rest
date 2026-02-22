@@ -1,8 +1,15 @@
 package co.spring.rest.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import co.spring.rest.entity.bo.Category;
@@ -12,6 +19,7 @@ import co.spring.rest.entity.repository.ICategoryRepository;
 import co.spring.rest.error.CreatedError;
 import co.spring.rest.error.NotFoundError;
 import co.spring.rest.iservice.ICategoryServ;
+import co.spring.rest.iservice.ICrudServ;
 
 @Service
 public class CategoryServ implements ICategoryServ{
@@ -23,12 +31,54 @@ public class CategoryServ implements ICategoryServ{
     private CategoryMapper categoryMapper;
 
     @Override
-    public List<CategoryDto> getList(){
-        return iCategoryRepository
-            .findAll()
-            .stream()
-            .map(categoryMapper::toCategoryDto)
-            .toList();
+    public Map<String, Object> getList(Integer pageNumber, Integer pageSize, String sort, String direction){
+        
+        Map<String, Object> mapCategoryDto = new HashMap<>();
+        List<CategoryDto> listCategoryDto = null;
+
+        if(sort == null)
+            sort = "id";
+
+        if(direction == null)
+            direction = Direction.ASC.name();
+
+        Direction d = (direction.equalsIgnoreCase(Direction.DESC.name())) ? Direction.DESC : Direction.ASC;
+
+        if(pageNumber == null || pageSize == null){
+
+            listCategoryDto = iCategoryRepository
+                .findAll(Sort.by(d, sort))
+                .stream()
+                .map(categoryMapper::toCategoryDto)
+                .toList();
+
+            mapCategoryDto.put(ICrudServ.CONTENT, listCategoryDto);
+
+        }else{
+
+            Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(d, sort));
+
+            Page<Category> categoryPage = iCategoryRepository.findAll(pageable);
+
+            listCategoryDto = categoryPage
+                .stream()
+                .map(categoryMapper::toCategoryDto)
+                .toList();
+            
+            mapCategoryDto.put(ICrudServ.CONTENT, listCategoryDto);
+            mapCategoryDto.put(ICrudServ.NUMBER_PAGE, categoryPage.getNumber());
+            mapCategoryDto.put(ICrudServ.SIZE_PAGE, categoryPage.getSize());
+            mapCategoryDto.put(ICrudServ.NUMBER_OF_ELEMENTS, categoryPage.getNumberOfElements());
+            mapCategoryDto.put(ICrudServ.TOTAL_PAGE, categoryPage.getTotalPages());
+            mapCategoryDto.put(ICrudServ.TOTAL_ELEMENTS, categoryPage.getTotalElements());
+            mapCategoryDto.put(ICrudServ.IS_FIRST, categoryPage.isFirst());
+            mapCategoryDto.put(ICrudServ.IS_LAST, categoryPage.isLast());
+            mapCategoryDto.put(ICrudServ.IS_EMPTY, categoryPage.isEmpty());
+
+        }
+
+        return mapCategoryDto;
+
     }
 
     @Override

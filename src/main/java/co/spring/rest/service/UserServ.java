@@ -1,10 +1,16 @@
 package co.spring.rest.service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import co.spring.rest.entity.bo.User;
@@ -13,6 +19,7 @@ import co.spring.rest.entity.mapper.UserMapper;
 import co.spring.rest.entity.repository.IUserRepository;
 import co.spring.rest.error.CreatedError;
 import co.spring.rest.error.NotFoundError;
+import co.spring.rest.iservice.ICrudServ;
 import co.spring.rest.iservice.IUserServ;
 
 @Service
@@ -25,12 +32,52 @@ public class UserServ implements IUserServ{
     private UserMapper userMapper;
 
     @Override
-    public List<UserDto> getList(){
-        return iUserRepository
-            .findAll()
-            .stream()
-            .map(userMapper::toUserDto)
-            .toList();
+    public Map<String, Object> getList(Integer pageNumber, Integer pageSize, String sort, String direction){
+        
+        Map<String, Object> mapUserDto = new HashMap<>();
+        List<UserDto> listUserDto = null;
+
+        if(sort == null)
+            sort = "id";
+
+        if(direction == null)
+            direction = Direction.ASC.name();
+
+        Direction d = (direction.equalsIgnoreCase(Direction.DESC.name())) ? Direction.DESC : Direction.ASC;
+
+        if(pageNumber == null || pageSize == null){
+            listUserDto = iUserRepository
+                .findAll(Sort.by(d, sort))
+                .stream()
+                .map(userMapper::toUserDto)
+                .toList();
+            
+            mapUserDto.put(ICrudServ.CONTENT, listUserDto);
+
+        }else{
+
+            Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(d, sort));
+            Page<User> userPage = iUserRepository.findAll(pageable);
+
+            listUserDto = userPage
+                .stream()
+                .map(userMapper::toUserDto)
+                .toList();
+
+            mapUserDto.put(ICrudServ.CONTENT, listUserDto);
+            mapUserDto.put(ICrudServ.NUMBER_PAGE, userPage.getNumber());
+            mapUserDto.put(ICrudServ.SIZE_PAGE, userPage.getSize());
+            mapUserDto.put(ICrudServ.NUMBER_OF_ELEMENTS, userPage.getNumberOfElements());
+            mapUserDto.put(ICrudServ.TOTAL_PAGE, userPage.getTotalPages());
+            mapUserDto.put(ICrudServ.TOTAL_ELEMENTS, userPage.getTotalElements());
+            mapUserDto.put(ICrudServ.IS_FIRST, userPage.isFirst());
+            mapUserDto.put(ICrudServ.IS_LAST, userPage.isLast());
+            mapUserDto.put(ICrudServ.IS_EMPTY, userPage.isEmpty());
+
+        }
+
+        return mapUserDto;
+
     }
 
     @Override

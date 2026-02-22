@@ -30,10 +30,11 @@ public class UserCtrl {
     private UserServ userServ;
 
     @GetMapping()    
-    public ResponseEntity<List<UserDto>> getListUsers(){
+    public ResponseEntity<Map<String, Object>> getListUsers(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize, @RequestParam(required = false) String direction, @RequestParam(required = false) String sort){
 
-        List<UserDto> listUsers = userServ.getList();
-        return ResponseEntity.ok(listUsers);
+        Map<String, Object> mapUserDto = userServ.getList(pageNumber, pageSize, sort, direction);
+
+        return ResponseEntity.ok(mapUserDto);
     }
 
     @GetMapping("/{id}")
