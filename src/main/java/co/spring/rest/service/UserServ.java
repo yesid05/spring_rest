@@ -120,17 +120,9 @@ public class UserServ implements IUserServ{
     public UserDto update(long id, UserDto userDto){
 
         User aUser = iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
-        
-        User u = userMapper.toUser(userDto);
-
-        aUser.setName(u.getName());
-        aUser.setLastName(u.getLastName());
-        aUser.setBirthDay(u.getBirthDay());
-        aUser.setSalary(u.getSalary());
-        aUser.setActive(u.isActive());
 
         try {
-            iUserRepository.save(aUser);
+            iUserRepository.save(userMapper.update(userDto, aUser));
         } catch (Exception e) {
             throw new CreatedError("User not update", "User not update, error internal "+e.getMessage(), e);
         }
@@ -145,13 +137,12 @@ public class UserServ implements IUserServ{
     */
 
     @Override
-    public UserDto delete(long id){
+    public void delete(long id){
 
         User aUser = iUserRepository.findById(id).orElseThrow(() -> new NotFoundError("User not found","User cloud not find in the list.",null));
 
         iUserRepository.delete(aUser);
-
-        return userMapper.toUserDto(aUser);
+        
     }
 
     @Override

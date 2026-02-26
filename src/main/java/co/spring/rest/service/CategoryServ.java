@@ -108,15 +108,10 @@ public class CategoryServ implements ICategoryServ{
 
         Category aCategory = iCategoryRepository.findById(id).orElseThrow(() -> new NotFoundError("Category not found", "Category cloud not find int the list", null));
 
-        Category c = categoryMapper.toCategory(categoryDto);
-
-        aCategory.setName(c.getName());
-        aCategory.setDescription(c.getDescription());
-
         try {
-            iCategoryRepository.save(aCategory);
+            iCategoryRepository.save(categoryMapper.update(categoryDto, aCategory));
         } catch (Exception e) {
-            throw new CreatedError("Category not update", "Category not update, error internal", e);
+            throw new CreatedError("Category not update", "Category not update, error internal "+e.getMessage(), e);
         }
 
         return categoryMapper.toCategoryDto(aCategory);
@@ -124,13 +119,11 @@ public class CategoryServ implements ICategoryServ{
     }
 
     @Override
-    public CategoryDto delete(long id){
+    public void delete(long id){
 
         Category aCategory = iCategoryRepository.findById(id).orElseThrow(() -> new NotFoundError("Category not found", "Category cloud not find int the list", null));
 
         iCategoryRepository.delete(aCategory);
-
-        return categoryMapper.toCategoryDto(aCategory);
 
     }
 

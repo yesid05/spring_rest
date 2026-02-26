@@ -4,6 +4,7 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
 import co.spring.rest.entity.bo.Category;
@@ -19,5 +20,9 @@ public interface CategoryMapper {
 
     @InheritInverseConfiguration
     Category toCategory(CategoryDto categoryDto);
+
+    @Mapping(target = "id", ignore = true)
+    @InheritInverseConfiguration
+    Category update(CategoryDto categoryDto, @MappingTarget Category category);    
 
 }

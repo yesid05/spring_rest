@@ -1,6 +1,8 @@
 package co.spring.rest.entity.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +27,7 @@ public class ProductDto {
     private String img;
 
     @JsonProperty("category")
+    @JsonInclude(value = Include.NON_NULL)
     private CategoryDto categoryDto;
 
 

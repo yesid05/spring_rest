@@ -129,13 +129,11 @@ public class ProductServ implements IProductServ{
     }
 
     @Override
-    public ProductDto delete(long id){
+    public void delete(long id){
 
         Product aProduct = iProductRepository.findById(id).orElseThrow(() -> new NotFoundError("Product not found", "Product cloud not find in the list", null));
 
         iProductRepository.delete(aProduct);
-
-        return productMapper.toProductDto(aProduct);
 
     }
 

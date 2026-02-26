@@ -30,6 +30,6 @@ public interface ICrudServ <E>{
 
     E update(long id, E e);
 
-    E delete(long id);
+    void delete(long id);
 
 }

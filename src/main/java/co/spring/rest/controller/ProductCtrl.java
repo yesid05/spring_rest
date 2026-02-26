@@ -3,10 +3,13 @@ package co.spring.rest.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import co.spring.rest.entity.dto.ProductDto;
 import co.spring.rest.service.ProductServ;
+import jakarta.validation.Valid;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -47,17 +50,19 @@ public class ProductCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<ProductDto> add(@RequestBody ProductDto product) {
+    public ResponseEntity<ProductDto> add(@RequestBody ProductDto product, UriComponentsBuilder uriComponentsBuilder) {
         ProductDto aProductDto = productServ.add(product);
 
         if(aProductDto == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        return ResponseEntity.ok(aProductDto);
+        URI uri = uriComponentsBuilder.path("/api/product/{id}").buildAndExpand(aProductDto.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(aProductDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> update(@PathVariable long id, @RequestBody ProductDto product) {
+    public ResponseEntity<?> update(@PathVariable long id, @RequestBody ProductDto product) {
         
         ProductDto aProductDto = productServ.update(id, product);
 
@@ -69,14 +74,12 @@ public class ProductCtrl {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductDto> delete(@PathVariable long id){
+    public ResponseEntity<?> delete(@PathVariable long id){
 
-        ProductDto aProductDto = productServ.delete(id);
+        productServ.delete(id);
 
-        if(aProductDto == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        return ResponseEntity.ok(aProductDto);
+        return ResponseEntity.noContent().build();
+        
     }
     
 

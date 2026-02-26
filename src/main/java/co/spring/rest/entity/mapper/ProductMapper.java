@@ -1,10 +1,13 @@
 package co.spring.rest.entity.mapper;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import co.spring.rest.entity.bo.Product;
 import co.spring.rest.entity.dto.ProductDto;
@@ -20,4 +23,5 @@ public interface ProductMapper {
 
     @InheritInverseConfiguration
     Product toProduct(ProductDto productDto);
+    
 }

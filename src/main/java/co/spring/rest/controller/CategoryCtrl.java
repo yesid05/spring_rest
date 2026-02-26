@@ -1,5 +1,6 @@
 package co.spring.rest.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import co.spring.rest.entity.dto.CategoryDto;
 import co.spring.rest.service.CategoryServ;
@@ -47,14 +49,16 @@ public class CategoryCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<?> add(@RequestBody CategoryDto category){
+    public ResponseEntity<?> add(@RequestBody CategoryDto category,UriComponentsBuilder uriComponentsBuilder){
 
         CategoryDto aCategoryDto = categoryServ.add(category);
 
         if(aCategoryDto == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        return ResponseEntity.ok(aCategoryDto);
+        URI uri = uriComponentsBuilder.path("/api/category/{id}").buildAndExpand(aCategoryDto.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(aCategoryDto);
     }
 
     @PutMapping("/{id}")
@@ -71,12 +75,9 @@ public class CategoryCtrl {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id){
         
-        CategoryDto aCategoryDto = categoryServ.delete(id);
+        categoryServ.delete(id);
 
-        if(aCategoryDto == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        return ResponseEntity.ok(aCategoryDto);
+        return ResponseEntity.noContent().build();
     }
 
 }

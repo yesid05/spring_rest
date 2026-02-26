@@ -74,9 +74,13 @@ public class UserCtrl {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> update(@PathVariable int id, @RequestBody UserDto user) {
-        
-        UserDto u = userServ.update(id, user);
-        return ResponseEntity.ok(u);
+            
+        UserDto aUserDto = userServ.update(id, user);
+
+        if(aUserDto == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return ResponseEntity.ok(aUserDto);
         
     }
 
@@ -90,12 +94,10 @@ public class UserCtrl {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDto> delete(@PathVariable long id){
-        UserDto u = userServ.delete(id);
+        
+        userServ.delete(id);
 
-        if(u==null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        return ResponseEntity.ok(u);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("")
@@ -103,7 +105,7 @@ public class UserCtrl {
         
         List<UserDto> listUser = userServ.deleteBySalary(BigDecimal.valueOf(Double.parseDouble(salary)));
 
-        if(listUser.isEmpty())
+        if(listUser.isEmpty() || listUser == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         
         return ResponseEntity.ok(listUser);
