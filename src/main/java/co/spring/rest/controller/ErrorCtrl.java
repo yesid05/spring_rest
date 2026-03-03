@@ -1,7 +1,6 @@
-package co.spring.rest.error;
+package co.spring.rest.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -10,8 +9,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import co.spring.rest.error.CreatedError;
+import co.spring.rest.error.ErrorMesssage;
+import co.spring.rest.error.NotFoundError;
+
 @ControllerAdvice
-public class ErrorManager {
+public class ErrorCtrl {
 
     @ExceptionHandler(NotFoundError.class)
     protected ResponseEntity<ErrorMesssage> errorUserNotFound(NotFoundError exception){
@@ -29,11 +32,11 @@ public class ErrorManager {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<?> errorArgumentNotValid(MethodArgumentNotValidException e){
+    protected ResponseEntity<?> errorArgumentNotValid(MethodArgumentNotValidException exception){
         
         Map errorMap = new HashMap<>();
 
-        e.getBindingResult().getFieldErrors().forEach(error -> {
+        exception.getBindingResult().getFieldErrors().forEach(error -> {
             errorMap.put(error.getField(), error.getDefaultMessage());
         });
 

@@ -43,9 +43,9 @@ public class ProductDto {
     @NotBlank(message = "Image is required")
     private String img;
 
+    @NotNull(message = "Category is required")
     @JsonProperty("category")
     @JsonInclude(value = Include.NON_NULL)
-    @NotNull(message = "Category is required")
     private CategoryDto categoryDto;
 
 
