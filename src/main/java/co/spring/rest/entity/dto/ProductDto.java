@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import co.spring.rest.error.validation.Lowercase;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -41,6 +42,7 @@ public class ProductDto {
 
     @NotNull(message = "Image is required")
     @NotBlank(message = "Image is required")
+    @Lowercase(message = "Image must be in lowercase")
     private String img;
 
     @NotNull(message = "Category is required")
