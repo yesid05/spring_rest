@@ -1,6 +1,7 @@
 package co.spring.rest.controller;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -9,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.service.UserServ;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,18 +65,20 @@ public class UserCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDto> add(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> add(@Valid @RequestBody UserDto user, UriComponentsBuilder uriComponentsBuilder) {
         
         UserDto aUser = userServ.add(user);
 
         if(aUser==null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        URI uri = uriComponentsBuilder.path("/api/login/").build().toUri();
         
-        return ResponseEntity.ok(aUser);
+        return ResponseEntity.created(uri).body(aUser);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable int id, @RequestBody UserDto user) {
+    public ResponseEntity<UserDto> update(@PathVariable int id, @Valid @RequestBody UserDto user) {
             
         UserDto aUserDto = userServ.update(id, user);
 

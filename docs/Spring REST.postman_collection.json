@@ -94,7 +94,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDay\": \"2025-10-06\",\n    \"salary\": \"100.2\",\n    \"active\": true\n}",
+              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"password\": \"Aa123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -427,7 +427,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"Electronics\",\n    \"description\": \"All electronics\"\n}",
+              "raw": "{   \n    \"name\": \"Electronics\",\n    \"description\": \"All electronics\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -497,15 +497,7 @@
   "variable": [
     {
       "key": "url",
-<<<<<<< HEAD
-<<<<<<< HEAD
       "value": "http://localhost:8080/api/"
-=======
-      "value": ""
->>>>>>> 39651b0 (Agregando documentación con postman)
-=======
-      "value": "http://localhost:8080/api/"
->>>>>>> 6b11fab (Paginación y ordenamiento en API Rest)
     }
   ]
 }

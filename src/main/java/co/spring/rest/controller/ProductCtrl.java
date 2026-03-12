@@ -50,7 +50,7 @@ public class ProductCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<ProductDto> add(@RequestBody ProductDto product, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<ProductDto> add(@Valid @RequestBody ProductDto product, UriComponentsBuilder uriComponentsBuilder) {
         ProductDto aProductDto = productServ.add(product);
 
         if(aProductDto == null)
@@ -62,7 +62,7 @@ public class ProductCtrl {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody ProductDto product) {
+    public ResponseEntity<?> update(@PathVariable long id, @Valid @RequestBody ProductDto product) {
         
         ProductDto aProductDto = productServ.update(id, product);
 

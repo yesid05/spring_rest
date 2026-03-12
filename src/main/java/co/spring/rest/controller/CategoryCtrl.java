@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import co.spring.rest.entity.dto.CategoryDto;
 import co.spring.rest.service.CategoryServ;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/category")
@@ -49,7 +50,7 @@ public class CategoryCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<?> add(@RequestBody CategoryDto category,UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<?> add(@Valid @RequestBody CategoryDto category,UriComponentsBuilder uriComponentsBuilder){
 
         CategoryDto aCategoryDto = categoryServ.add(category);
 
@@ -62,7 +63,7 @@ public class CategoryCtrl {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody CategoryDto category){
+    public ResponseEntity<?> update(@PathVariable long id, @Valid @RequestBody CategoryDto category){
 
         CategoryDto aCategoryDto = categoryServ.update(id, category);
 
