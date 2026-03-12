@@ -35,5 +35,12 @@ public class User{
     private BigDecimal salary;
 
     private boolean active;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    private String email;
+
+    private String password;
     
 }
