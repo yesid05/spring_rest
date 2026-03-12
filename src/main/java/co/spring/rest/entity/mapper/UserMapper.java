@@ -22,7 +22,11 @@ public interface UserMapper {
     @InheritInverseConfiguration
     User toUser(UserDto userDto);
 
-    @Mapping(target = "id", ignore = true)
+    @Mappings({
+        @Mapping(target = "id", ignore = true),
+        @Mapping(source = "birthDay", target = "birthDay", dateFormat = "yyyy-MM-dd"),
+        @Mapping(source = "salary", target = "salary", numberFormat = "$#.00")
+    })
     User update(UserDto userDto, @MappingTarget User user);
 
 }
