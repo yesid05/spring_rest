@@ -108,6 +108,9 @@ public class UserServ implements IUserServ{
 
         User aUser = null;
 
+        if(iUserRepository.existsByEmail(userDto.getEmail()))
+            throw new CreatedError("User not created", "User not created, email already exists", null);
+
         try {
             aUser = iUserRepository.save(userMapper.toUser(userDto));
         } catch (Exception e) {

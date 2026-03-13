@@ -15,4 +15,6 @@ public interface IUserRepository extends JpaRepository<User, Long>{
 
     List<User> deleteBySalary(BigDecimal salary);
 
+    boolean existsByEmail(String email);
+
 }

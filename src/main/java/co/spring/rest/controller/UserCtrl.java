@@ -72,7 +72,7 @@ public class UserCtrl {
         if(aUser==null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        URI uri = uriComponentsBuilder.path("/api/login/").build().toUri();
+        URI uri = uriComponentsBuilder.path("/api/auth/login").build().toUri();
         
         return ResponseEntity.created(uri).body(aUser);
     }
