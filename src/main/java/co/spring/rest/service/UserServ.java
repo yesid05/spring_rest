@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import co.spring.rest.entity.bo.User;
@@ -24,6 +25,9 @@ import co.spring.rest.iservice.IUserServ;
 
 @Service
 public class UserServ implements IUserServ{
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private IUserRepository iUserRepository;
@@ -112,7 +116,12 @@ public class UserServ implements IUserServ{
             throw new CreatedError("User not created", "User not created, email already exists", null);
 
         try {
-            aUser = iUserRepository.save(userMapper.toUser(userDto));
+
+            User u = userMapper.toUser(userDto);
+            u.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+            aUser = iUserRepository.save(u);
+        
         } catch (Exception e) {
             throw new CreatedError("User not created", "User not created, error internal "+e.getMessage(), e);
         }
