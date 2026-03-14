@@ -16,7 +16,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}user?sort=name",
+              "raw": "{{url}}user",
               "host": [
                 "{{url}}user"
               ],
@@ -34,7 +34,7 @@
                 {
                   "key": "sort",
                   "value": "name",
-                  "type": "text"
+                  "disabled": true
                 },
                 {
                   "key": "direction",
@@ -94,7 +94,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"password\": \"Aa123456789\"\n}",
+              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 42 75 205\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -117,7 +117,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": 5,\n    \"name\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDay\": \"2025-10-06\",\n    \"salary\": \"100.2\",\n    \"active\": false\n}   ",
+              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 42 75 205\",\n    \"email\": \"john.doe.1@example.com\",\n    \"password\": \"Aa123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -228,14 +228,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}product?pageNumber=33&pageSize=6&sort=category&direction=asc",
+              "raw": "{{url}}product?pageNumber=0&pageSize=6&direction=asc",
               "host": [
                 "{{url}}product"
               ],
               "query": [
                 {
                   "key": "pageNumber",
-                  "value": "33"
+                  "value": "0"
                 },
                 {
                   "key": "pageSize",
@@ -243,7 +243,8 @@
                 },
                 {
                   "key": "sort",
-                  "value": "category"
+                  "value": "category",
+                  "disabled": true
                 },
                 {
                   "key": "direction",
@@ -260,12 +261,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}product/1",
+              "raw": "{{url}}product/201",
               "host": [
                 "{{url}}product"
               ],
               "path": [
-                "1"
+                "201"
               ]
             }
           },
@@ -278,7 +279,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": \"201\",\n    \"name\": \"John Doe\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"http://dummyimage.com/674x222.png/5fa2dd/ffffff\",\n    \"category\": {\n        \"id\": \"1\"\n    }\n}",
+              "raw": "{\n    \"id\": \"201\",\n    \"name\": \"Yesid\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"Http://dummyimage.com/674x222.png/5fa2dd/ffffff\",\n    \"category\": {\n        \"id\": 1\n    }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -330,12 +331,12 @@
               "raw": "{\n    \"id\": \"201\",\n    \"name\": \"John Doe\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"active\",\n    \"id_category\": \"1\"\n}"
             },
             "url": {
-              "raw": "{{url}}product/1",
+              "raw": "{{url}}product/201",
               "host": [
                 "{{url}}product"
               ],
               "path": [
-                "1"
+                "201"
               ]
             }
           },
@@ -352,18 +353,18 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}category?pageNumber=0&pageSize=5&direction=asc",
+              "raw": "{{url}}category?pageNumber=3&pageSize=3",
               "host": [
                 "{{url}}category"
               ],
               "query": [
                 {
                   "key": "pageNumber",
-                  "value": "0"
+                  "value": "3"
                 },
                 {
                   "key": "pageSize",
-                  "value": "5"
+                  "value": "3"
                 },
                 {
                   "key": "sort",
@@ -373,7 +374,8 @@
                 },
                 {
                   "key": "direction",
-                  "value": "asc"
+                  "value": "asc",
+                  "disabled": true
                 }
               ]
             }
@@ -386,12 +388,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}category/1",
+              "raw": "{{url}}category/11",
               "host": [
                 "{{url}}category"
               ],
               "path": [
-                "1"
+                "11"
               ]
             }
           },
@@ -462,6 +464,37 @@
               ],
               "path": [
                 "11"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}auth/login",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "login"
               ]
             }
           },
