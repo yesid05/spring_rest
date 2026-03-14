@@ -2,6 +2,11 @@ package co.spring.rest.entity.bo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +24,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "customer")
-public class User{
+public class User implements UserDetails{
 
     @Id
     private long id;
@@ -42,5 +47,15 @@ public class User{
     private String email;
 
     private String password;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
     
 }
