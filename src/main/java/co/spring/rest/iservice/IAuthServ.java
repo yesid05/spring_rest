@@ -1,7 +1,11 @@
 package co.spring.rest.iservice;
 
+import co.spring.rest.entity.dto.UserDto;
+
 public interface IAuthServ {
 
-    boolean login(String email, String password);
+    UserDto registerUser(UserDto userDto);
+
+    String login(String email, String password);
 
 }

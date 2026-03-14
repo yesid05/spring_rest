@@ -94,7 +94,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 42 75 205\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\"\n}",
+              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -117,7 +117,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 42 75 205\",\n    \"email\": \"john.doe.1@example.com\",\n    \"password\": \"Aa123456789\"\n}",
+              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe.1@example.com\",\n    \"password\": \"Aa123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -495,6 +495,32 @@
               ],
               "path": [
                 "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}auth/register",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "register"
               ]
             }
           },
