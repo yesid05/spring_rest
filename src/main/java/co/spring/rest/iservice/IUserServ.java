@@ -11,4 +11,8 @@ public interface IUserServ extends ICrudServ<UserDto>{
 
     List<UserDto> deleteBySalary(BigDecimal salary);
 
+    UserDto findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
 }

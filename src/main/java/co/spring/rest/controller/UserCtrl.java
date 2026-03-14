@@ -65,16 +65,19 @@ public class UserCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDto> add(@Valid @RequestBody UserDto user, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<UserDto> add() {
         
-        UserDto aUser = userServ.add(user);
+        // UserDto aUser = userServ.add(user);
 
-        if(aUser==null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        // if(aUser==null)
+        //     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        URI uri = uriComponentsBuilder.path("/api/auth/login").build().toUri();
+        // URI uri = uriComponentsBuilder.path("/api/auth/login").build().toUri();
         
-        return ResponseEntity.created(uri).body(aUser);
+        // return ResponseEntity.created(uri).body(aUser);
+        
+        return ResponseEntity.badRequest().build();
+
     }
 
     @PutMapping("/{id}")

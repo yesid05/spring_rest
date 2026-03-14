@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import co.spring.rest.entity.bo.User;
@@ -25,9 +24,6 @@ import co.spring.rest.iservice.IUserServ;
 
 @Service
 public class UserServ implements IUserServ{
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private IUserRepository iUserRepository;
@@ -108,24 +104,29 @@ public class UserServ implements IUserServ{
     }
 
     @Override
+    public UserDto findByEmail(String email) {
+        User aUser = iUserRepository.findByEmail(email).orElseThrow(() -> new NotFoundError("User not found","User cloud not find for email in the list.",null));
+
+        return userMapper.toUserDto(aUser);
+    }
+
+    @Override
+    public boolean existsByEmail(String email){
+        return iUserRepository.existsByEmail(email);
+    }
+
+    @Override
     public UserDto add(UserDto userDto){
 
         User aUser = null;
 
-        if(iUserRepository.existsByEmail(userDto.getEmail()))
-            throw new CreatedError("User not created", "User not created, email already exists", null);
-
         try {
-
-            User u = userMapper.toUser(userDto);
-            u.setPassword(passwordEncoder.encode(userDto.getPassword()));
-
-            aUser = iUserRepository.save(u);
-        
+            aUser = iUserRepository.save(userMapper.toUser(userDto));
         } catch (Exception e) {
             throw new CreatedError("User not created", "User not created, error internal "+e.getMessage(), e);
         }
         return userMapper.toUserDto(aUser);
+
     }
 
     @Override
