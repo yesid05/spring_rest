@@ -4,9 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import co.spring.rest.entity.dto.JwtDto;
 import co.spring.rest.entity.dto.LoginDto;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.service.AuthServ;
+import co.spring.rest.service.JwtServ;
 import jakarta.validation.Valid;
 
 import java.net.URI;
@@ -25,8 +27,11 @@ public class AuthCtrl {
     @Autowired
     private AuthServ authServ;
 
+    @Autowired
+    private JwtServ jwtServ;
+
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody UserDto userDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<UserDto> register(@Valid @RequestBody UserDto userDto, UriComponentsBuilder uriComponentsBuilder) {
         
         UserDto aUser = authServ.registerUser(userDto);
 
@@ -41,11 +46,13 @@ public class AuthCtrl {
     
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginDto loginDto) {
         
         String principal = authServ.login(loginDto.getEmail(), loginDto.getPassword());
 
-        return ResponseEntity.ok(principal);
+        JwtDto jwtDto = jwtServ.generateToken(loginDto.getEmail());
+
+        return ResponseEntity.ok(jwtDto);
 
     }  
     
