@@ -2,6 +2,7 @@ package co.spring.rest.service;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import co.spring.rest.entity.dto.JwtDto;
@@ -12,9 +13,11 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtServ implements IJwtServ{
 
-    public static String KEY = "secret-key-secret-key-secret-key";
+    @Value("${spring.jwt.secret}")
+    private String KEY;
 
-    public static long EXPIRATION_TOKEN_MINUTE = 1;
+    @Value("${spring.jwt.expiration}")
+    private long EXPIRATION_TOKEN_MINUTE;
 
     @Override
     public JwtDto generateToken(String email) {
