@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 @RestController
@@ -55,6 +56,17 @@ public class AuthCtrl {
         return ResponseEntity.ok(jwtDto);
 
     }  
+
+    @PostMapping("/validate-token")
+    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String header) {
+        
+        String aToken = header.replace("Bearer ", "");
+        
+        boolean isValidate = jwtServ.validateToken(aToken);
+
+        return ResponseEntity.ok(isValidate);
+    }
+    
     
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestBody String entity) {

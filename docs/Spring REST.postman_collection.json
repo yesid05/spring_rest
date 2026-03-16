@@ -525,6 +525,44 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "validateToken",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3MzYzMDg4MiwiZXhwIjoxNzczNjMxMDAyfQ.DRqtJ_2qyd-t9xoHtX42nF18dZKIuUfYo-qUPXWD83oGhSRUnY1I3OKmakfsb2UT2n6jrGpGSpPCzTtAZKqW9g",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3MzYxMDU1MCwiZXhwIjoxNzczNjEwNjcwfQ.L_Tp9S6dde3Z4q3mY8kkxd95mxSeBqAn6sqhmECVFhE-MWm9NjNN52oo9n4_NklW6mQu6Jhxt0CvG1hd1oqaQQ",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}auth/validate-token",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "validate-token"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     }
