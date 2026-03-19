@@ -530,22 +530,14 @@
           "name": "validateToken",
           "request": {
             "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3MzYzMDg4MiwiZXhwIjoxNzczNjMxMDAyfQ.DRqtJ_2qyd-t9xoHtX42nF18dZKIuUfYo-qUPXWD83oGhSRUnY1I3OKmakfsb2UT2n6jrGpGSpPCzTtAZKqW9g",
-                  "type": "string"
-                }
-              ]
+              "type": "noauth"
             },
             "method": "POST",
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3MzYxMDU1MCwiZXhwIjoxNzczNjEwNjcwfQ.L_Tp9S6dde3Z4q3mY8kkxd95mxSeBqAn6sqhmECVFhE-MWm9NjNN52oo9n4_NklW6mQu6Jhxt0CvG1hd1oqaQQ",
-                "type": "text",
-                "disabled": true
+                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3MzkyMTkwMywiZXhwIjoxNzczOTIyMDIzfQ.WBdA2iJlJ-j4dYrPlVXDn8cOwvYLunS3Fy2NF-ju__wRHPHXgFRPQcZwbtVhFo-iatMWWrd1RqNeUqQOb2Pbsg",
+                "type": "text"
               }
             ],
             "body": {
@@ -567,6 +559,9 @@
       ]
     }
   ],
+  "auth": {
+    "type": "bearer"
+  },
   "event": [
     {
       "listen": "prerequest",

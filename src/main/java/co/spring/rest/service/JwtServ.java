@@ -7,6 +7,7 @@ import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import co.spring.rest.entity.dto.JwtDto;
 import co.spring.rest.iservice.IJwtServ;
@@ -14,6 +15,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class JwtServ implements IJwtServ{
@@ -50,18 +52,37 @@ public class JwtServ implements IJwtServ{
 
         try {
             
-            Claims claims = Jwts
+            Claims claims = getClaims(token);
+
+            return claims.getExpiration().after(new Date());
+
+        } catch (JwtException e) {
+            return false;
+        }
+
+    }
+
+    @Override
+    public Claims getClaims(String token) {
+        return Jwts
                 .parser()
                 .verifyWith((SecretKey)generateKeySecret())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
 
-                return claims.getExpiration().after(new Date());
+    @Override
+    public String getTokenRequest(HttpServletRequest httpServletRequest) {
+        
+        String aAuthorization = httpServletRequest.getHeader("Authorization");
 
-        } catch (JwtException e) {
-            return false;
-        }
+        if(!StringUtils.hasText(aAuthorization) || !aAuthorization.startsWith("Bearer ")) {
+			return null;
+		}
+
+        return aAuthorization.replace("Bearer ", "");
+
 
     }
 
