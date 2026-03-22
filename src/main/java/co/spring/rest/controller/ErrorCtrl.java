@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,5 +44,14 @@ public class ErrorCtrl {
         ErrorMesssage exceptionMesssage = new ErrorMesssage(HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.name(), errorMap);
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exceptionMesssage);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    protected ResponseEntity<?> errorCredentials(BadCredentialsException exception){
+
+        ErrorMesssage exceptionMesssage = new ErrorMesssage(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.name(), "Invalid credentials");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exceptionMesssage);
+
     }
 }
