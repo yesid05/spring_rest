@@ -41,6 +41,12 @@
                   "value": "desc",
                   "type": "text",
                   "disabled": true
+                },
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
                 }
               ]
             }
@@ -501,6 +507,32 @@
           "response": []
         },
         {
+          "name": "profile",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}auth",
+              "host": [
+                "{{url}}auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "register",
           "request": {
             "method": "POST",
@@ -536,7 +568,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3MzkyMTkwMywiZXhwIjoxNzczOTIyMDIzfQ.WBdA2iJlJ-j4dYrPlVXDn8cOwvYLunS3Fy2NF-ju__wRHPHXgFRPQcZwbtVhFo-iatMWWrd1RqNeUqQOb2Pbsg",
+                "value": "Bearer",
                 "type": "text"
               }
             ],
@@ -560,7 +592,14 @@
     }
   ],
   "auth": {
-    "type": "bearer"
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3NDIxMjYxMSwiZXhwIjoxNzc0MjEyNzMxfQ.MVIXCxeGaTzZqCmthLDXEJ9nBMPXhJKqmzsGKcx3MeXiOW_D9fcodAVGVtg3Y-sRXPg6qh8fX7RxlIByrvS3hg",
+        "type": "string"
+      }
+    ]
   },
   "event": [
     {
@@ -589,7 +628,7 @@
   "variable": [
     {
       "key": "url",
-      "value": "http://localhost:8080/api/"
+      "value": ""
     }
   ]
 }

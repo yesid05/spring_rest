@@ -4,11 +4,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.JwtDto;
 import co.spring.rest.entity.dto.LoginDto;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.service.AuthServ;
 import co.spring.rest.service.JwtServ;
+import co.spring.rest.service.UserServ;
 import jakarta.validation.Valid;
 
 import java.net.URI;
@@ -16,9 +18,14 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -29,7 +36,24 @@ public class AuthCtrl {
     private AuthServ authServ;
 
     @Autowired
+    private UserServ userServ;
+
+    @Autowired
     private JwtServ jwtServ;
+
+    @GetMapping()
+    public ResponseEntity<UserDto> profile() {
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String email = ((User)authentication.getPrincipal()).getEmail();
+
+        UserDto aUserDto = userServ.findByEmail(email);
+
+        return ResponseEntity.ok(aUserDto);
+
+    }
+    
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@Valid @RequestBody UserDto userDto, UriComponentsBuilder uriComponentsBuilder) {
