@@ -11,6 +11,8 @@ import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.service.AuthServ;
 import co.spring.rest.service.JwtServ;
 import co.spring.rest.service.UserServ;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import java.net.URI;
@@ -71,11 +73,21 @@ public class AuthCtrl {
     
 
     @PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginDto loginDto, HttpServletResponse response) {
         
         UserDto userDto = authServ.login(loginDto.getEmail(), loginDto.getPassword());
 
-        JwtDto jwtDto = jwtServ.generateToken(userDto);
+        JwtDto jwtDto = jwtServ.generateAccessToken(userDto);
+
+        String refreshToken = jwtServ.generateRefreshToken(userDto);
+
+        Cookie cookie = new Cookie("refreshToken", refreshToken);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/api/auth/refresh-token");
+        cookie.setMaxAge((int)jwtServ.getExpirationRefreshToken());
+        cookie.setSecure(true);
+
+        response.addCookie(cookie);
 
         return ResponseEntity.ok(jwtDto);
 

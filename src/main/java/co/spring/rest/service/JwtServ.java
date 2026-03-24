@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.JwtDto;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.iservice.IJwtServ;
@@ -27,11 +26,28 @@ public class JwtServ implements IJwtServ{
     @Value("${spring.jwt.secret}")
     private String KEY;
 
-    @Value("${spring.jwt.expiration}")
-    private long EXPIRATION_TOKEN_MINUTE;
+    @Value("${spring.jwt.expiration-access-token}")
+    public long EXPIRATION_ACCESS_TOKEN_MINUTE;
+
+    @Value("${spring.jwt.expiration-refresh-token}")
+    public long EXPIRATION_REFRESH_TOKEN_MINUTE;
 
     @Override
-    public JwtDto generateToken(UserDto userDto) {
+    public JwtDto generateAccessToken(UserDto userDto) {
+        
+        String token = generateToken(userDto, EXPIRATION_ACCESS_TOKEN_MINUTE);
+
+        return new JwtDto(userDto.getEmail(), token);
+    }
+
+    @Override
+    public String generateRefreshToken(UserDto userDto) {
+        return generateToken(userDto, EXPIRATION_REFRESH_TOKEN_MINUTE);
+    }
+
+
+    @Override
+    public String generateToken(UserDto userDto,long expirationToken) {
 
         Map<String, Object> claims = new HashMap<>();
 
@@ -43,11 +59,11 @@ public class JwtServ implements IJwtServ{
             .subject(userDto.getEmail())
             .claims(claims)
             .issuedAt(currentTime)
-            .expiration(new Date((EXPIRATION_TOKEN_MINUTE*60*1000)+currentTime.getTime()))
+            .expiration(new Date((expirationToken*60*1000)+currentTime.getTime()))
             .signWith(generateKeySecret())
             .compact();
 
-        return new JwtDto(userDto.getEmail(), token);
+        return token;
 
     }
 
@@ -93,6 +109,10 @@ public class JwtServ implements IJwtServ{
         return aAuthorization.replace("Bearer ", "");
 
 
+    }
+
+    public long getExpirationRefreshToken(){
+        return EXPIRATION_REFRESH_TOKEN_MINUTE;
     }
 
 }

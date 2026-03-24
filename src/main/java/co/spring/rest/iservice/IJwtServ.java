@@ -9,7 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public interface IJwtServ {
 
-    JwtDto generateToken(UserDto userDto);
+    JwtDto generateAccessToken(UserDto userDto);
+
+    String generateRefreshToken(UserDto userDto);
+
+    String generateToken(UserDto userDto,long expirationToken);
 
     Claims getClaims(String token);
 
