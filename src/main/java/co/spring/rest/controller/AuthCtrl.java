@@ -73,9 +73,9 @@ public class AuthCtrl {
     @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginDto loginDto) {
         
-        String principal = authServ.login(loginDto.getEmail(), loginDto.getPassword());
+        UserDto userDto = authServ.login(loginDto.getEmail(), loginDto.getPassword());
 
-        JwtDto jwtDto = jwtServ.generateToken(loginDto.getEmail());
+        JwtDto jwtDto = jwtServ.generateToken(userDto);
 
         return ResponseEntity.ok(jwtDto);
 

@@ -6,6 +6,6 @@ public interface IAuthServ {
 
     UserDto registerUser(UserDto userDto);
 
-    String login(String email, String password);
+    UserDto login(String email, String password);
 
 }

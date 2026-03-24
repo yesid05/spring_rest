@@ -2,6 +2,8 @@ package co.spring.rest.service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.crypto.SecretKey;
 
@@ -9,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.JwtDto;
+import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.iservice.IJwtServ;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -27,18 +31,23 @@ public class JwtServ implements IJwtServ{
     private long EXPIRATION_TOKEN_MINUTE;
 
     @Override
-    public JwtDto generateToken(String email) {
+    public JwtDto generateToken(UserDto userDto) {
+
+        Map<String, Object> claims = new HashMap<>();
+
+        claims.put("name", userDto.getName());
 
         Date currentTime = new Date(System.currentTimeMillis());
         
         String token = Jwts.builder()
-            .subject(email)
+            .subject(userDto.getEmail())
+            .claims(claims)
             .issuedAt(currentTime)
             .expiration(new Date((EXPIRATION_TOKEN_MINUTE*60*1000)+currentTime.getTime()))
             .signWith(generateKeySecret())
             .compact();
 
-        return new JwtDto(email, token);
+        return new JwtDto(userDto.getEmail(), token);
 
     }
 

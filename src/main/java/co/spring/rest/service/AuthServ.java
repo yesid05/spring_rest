@@ -30,13 +30,13 @@ public class AuthServ implements IAuthServ{
     private UserMapper userMapper;
 
     @Override
-    public String login(String email, String password) {
+    public UserDto login(String email, String password) {
 
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(email, password)
         );
 
-        return authentication.getPrincipal().toString();
+        return userMapper.toUserDto((User)authentication.getPrincipal());
 
     }
 
