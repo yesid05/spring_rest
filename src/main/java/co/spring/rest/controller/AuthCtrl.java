@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import co.spring.rest.config.JwtConfig;
 import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.JwtDto;
 import co.spring.rest.entity.dto.LoginDto;
@@ -26,9 +27,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
 
 @RestController
 @RequestMapping("/api/auth")
@@ -39,6 +37,9 @@ public class AuthCtrl {
 
     @Autowired
     private UserServ userServ;
+
+    @Autowired
+    private JwtConfig jwtConfig;
 
     @Autowired
     private JwtServ jwtServ;
@@ -84,7 +85,7 @@ public class AuthCtrl {
         Cookie cookie = new Cookie("refreshToken", refreshToken);
         cookie.setHttpOnly(true);
         cookie.setPath("/api/auth/refresh-token");
-        cookie.setMaxAge((int)jwtServ.getExpirationRefreshToken());
+        cookie.setMaxAge(jwtConfig.getExpirationRefreshTokenMinute());
         cookie.setSecure(true);
 
         response.addCookie(cookie);

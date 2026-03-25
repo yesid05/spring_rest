@@ -7,10 +7,11 @@ import java.util.Map;
 
 import javax.crypto.SecretKey;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import co.spring.rest.config.JwtConfig;
 import co.spring.rest.entity.dto.JwtDto;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.iservice.IJwtServ;
@@ -23,26 +24,20 @@ import jakarta.servlet.http.HttpServletRequest;
 @Service
 public class JwtServ implements IJwtServ{
 
-    @Value("${spring.jwt.secret}")
-    private String KEY;
-
-    @Value("${spring.jwt.expiration-access-token}")
-    public long EXPIRATION_ACCESS_TOKEN_MINUTE;
-
-    @Value("${spring.jwt.expiration-refresh-token}")
-    public long EXPIRATION_REFRESH_TOKEN_MINUTE;
+    @Autowired
+    private JwtConfig jwtConfig;
 
     @Override
     public JwtDto generateAccessToken(UserDto userDto) {
         
-        String token = generateToken(userDto, EXPIRATION_ACCESS_TOKEN_MINUTE);
+        String token = generateToken(userDto, jwtConfig.getExpirationAccessTokenMinute());
 
         return new JwtDto(userDto.getEmail(), token);
     }
 
     @Override
     public String generateRefreshToken(UserDto userDto) {
-        return generateToken(userDto, EXPIRATION_REFRESH_TOKEN_MINUTE);
+        return generateToken(userDto, jwtConfig.getExpirationRefreshTokenMinute());
     }
 
 
@@ -69,7 +64,7 @@ public class JwtServ implements IJwtServ{
 
     @Override
     public Key generateKeySecret(){
-        return Keys.hmacShaKeyFor(KEY.getBytes());
+        return Keys.hmacShaKeyFor(jwtConfig.getSecret().getBytes());
     }
 
     @Override
@@ -109,10 +104,6 @@ public class JwtServ implements IJwtServ{
         return aAuthorization.replace("Bearer ", "");
 
 
-    }
-
-    public long getExpirationRefreshToken(){
-        return EXPIRATION_REFRESH_TOKEN_MINUTE;
     }
 
 }
