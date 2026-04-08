@@ -21,11 +21,13 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -93,6 +95,22 @@ public class AuthCtrl {
         return ResponseEntity.ok(jwtDto);
 
     }  
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<JwtDto> refreshToken(@CookieValue(value = "refreshToken") String cookie) {
+        
+        if(!jwtServ.validateToken(cookie))
+            throw new BadCredentialsException("Invalid credentials");
+
+        String email = jwtServ.getClaims(cookie).getSubject();
+
+        UserDto userDto = userServ.findByEmail(email);
+
+        JwtDto jwtDto = jwtServ.generateAccessToken(userDto);
+
+        return ResponseEntity.ok(jwtDto);
+    }
+    
 
     @PostMapping("/validate-token")
     public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String header) {

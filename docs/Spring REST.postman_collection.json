@@ -587,6 +587,30 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "refreshToken",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}auth/refresh-token",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     }
@@ -596,7 +620,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3NDIxMjYxMSwiZXhwIjoxNzc0MjEyNzMxfQ.MVIXCxeGaTzZqCmthLDXEJ9nBMPXhJKqmzsGKcx3MeXiOW_D9fcodAVGVtg3Y-sRXPg6qh8fX7RxlIByrvS3hg",
+        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsIm5hbWUiOiJKb2huIiwiaWF0IjoxNzc1NjE0MDkxLCJleHAiOjE3NzU2MTQyMTF9.xrKuvkMEvYU1c0up67cUIfHtTpEkRf_691M3Th0Plg6zqdHnZfYLRVqowyXiuDk48ttv2kMO40OCtLAGknaTNQ",
         "type": "string"
       }
     ]
