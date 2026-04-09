@@ -15,7 +15,8 @@ public interface UserMapper {
 
     @Mappings({
         @Mapping(source = "birthDay", target = "birthDay", dateFormat = "yyyy-MM-dd"),
-        @Mapping(source = "salary", target = "salary", numberFormat = "$#.00")
+        @Mapping(source = "salary", target = "salary", numberFormat = "$#.00"),
+        @Mapping(source = "role", target = "roleDto")
     })
     UserDto toUserDto(User user);
 

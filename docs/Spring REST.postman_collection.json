@@ -539,7 +539,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\"\n}",
+              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\",\n    \"role\": {\n        \"name\": \"administrator\"\n    }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -652,7 +652,7 @@
   "variable": [
     {
       "key": "url",
-      "value": ""
+      "value": "http://localhost:8080/api/"
     }
   ]
 }

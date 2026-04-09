@@ -80,4 +80,7 @@ public class UserDto {
     @Size(min = 8, message = "The password must be at least 8 characters")
     private String password;
 
+    @JsonProperty("role")
+    private RoleDto roleDto;
+
 }

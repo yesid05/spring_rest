@@ -47,6 +47,7 @@ public class JwtServ implements IJwtServ{
         Map<String, Object> claims = new HashMap<>();
 
         claims.put("name", userDto.getName());
+        claims.put("role", userDto.getRoleDto().getName());
 
         Date currentTime = new Date(System.currentTimeMillis());
         

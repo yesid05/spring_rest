@@ -2,26 +2,30 @@
 -- /3\d{2} \d{2} \d{2} \d{3}/.gen
 -- /[A-Za-z0-9]{8}/.gen
 
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (1, 'Kriste', 'Hansen', '2025-03-23', 720.28, true, '354 25 52 589', 'khansen0@ustream.tv', '7AP6hr7N');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (2, 'Lilia', 'Chainey', '2025-05-07', 745.7, true, '372 91 37 781', 'lchainey1@4shared.com', 'eijz11iX');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (3, 'Jeanna', 'Guiot', '2025-09-11', 788.15, true, '362 34 94 825', 'jguiot2@google.co.uk', '0Zq8ujTT');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (4, 'Christoper', 'Bottomer', '2025-08-04', 981.71, true, '338 27 80 099', 'cbottomer3@umich.edu', '9PF4HxEa');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (5, 'Sibby', 'Brach', '2025-06-01', 941.26, false, '379 41 71 899', 'sbrach4@ucsd.edu', 'CORWALeg');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (6, 'Garrot', 'Lightbown', '2026-01-16', 570.1, true, '381 01 93 882', 'glightbown5@gov.uk', 'PT2xZ2F0');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (7, 'Myrta', 'Mankor', '2025-06-07', 202.43, false, '351 59 25 233', 'mmankor6@patch.com', '4Q1fAn9w');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (8, 'Lurleen', 'Pedroli', '2025-06-15', 623.96, false, '326 39 50 994', 'lpedroli7@google.it', '0EczeQvU');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (9, 'Camella', 'Birchenhead', '2026-01-11', 321.6, true, '312 79 94 303', 'cbirchenhead8@deviantart.com', 'x1WQ41ta');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (10, 'Chev', 'Ottiwill', '2025-04-21', 281.44, true, '302 58 84 989', 'cottiwill9@w3.org', '5kO676CP');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (11, 'Celestina', 'Geeson', '2025-08-18', 221.96, false, '376 79 02 214', 'cgeesona@stumbleupon.com', 'sGa9Tdmd');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (12, 'Madelyn', 'Meale', '2026-02-03', 126.78, true, '352 47 54 750', 'mmealeb@admin.ch', '35EwK4Wn');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (13, 'Perle', 'Grubey', '2025-11-21', 267.26, false, '374 94 51 904', 'pgrubeyc@nature.com', 'UK6867Vr');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (14, 'Hodge', 'Roglieri', '2025-12-01', 329.58, false, '320 00 88 609', 'hroglierid@studiopress.com', 'pu30hnK9');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (15, 'Kristan', 'Standidge', '2025-08-16', 114.09, true, '353 94 65 111', 'kstandidgee@networksolutions.com', 'X3pU5Kfe');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (16, 'Stella', 'Greatorex', '2025-05-18', 942.39, false, '323 42 89 049', 'sgreatorexf@deliciousdays.com', '1bC92xFC');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (17, 'Jobie', 'Le Fevre', '2025-12-20', 970.03, true, '371 46 96 809', 'jlefevreg@mysql.com', 'g40hxNne');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (18, 'Tresa', 'McNellis', '2025-05-26', 707.55, true, '310 53 90 099', 'tmcnellish@tmall.com', 'bPm5u69w');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (19, 'Jasmin', 'Bartke', '2025-07-09', 930.66, false, '372 39 27 205', 'jbartkei@paginegialle.it', 'b6AnkHbj');
-insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password) values (20, 'Lonnie', 'Murcott', '2025-06-24', 631.03, false, '340 84 16 670', 'lmurcottj@omniture.com', 'M74Phtw1');
+insert into role (id, name) values (1, 'ADMINISTRATOR');
+insert into role (id, name) values (2, 'OPERATOR');
+insert into role (id, name) values (3, 'CUSTOMER');
+
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (1, 'Lelia', 'Conahy', '2025-06-22', 876.69, true, '332 58 25 250', 'lconahy0@si.edu', 'EkwxnQE4', 1);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (2, 'Bria', 'Mabone', '2025-09-17', 270.42, false, '334 07 33 615', 'bmabone1@census.gov', 'ZGKBd0hB', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (3, 'Lamond', 'Uppett', '2025-06-18', 202.61, true, '352 17 25 489', 'luppett2@google.ru', 'PkWMqk68', 3);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (4, 'Lorant', 'Lamas', '2026-02-15', 847.41, true, '344 80 95 124', 'llamas3@nyu.edu', '46sz85W7', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (5, 'Erv', 'Lamplugh', '2025-04-22', 476.71, true, '346 30 20 883', 'elamplugh4@pen.io', 'fbNh9N6z', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (6, 'Preston', 'Boards', '2026-02-09', 302.53, false, '396 64 98 656', 'pboards5@twitter.com', 'sg8iJ4gd', 1);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (7, 'Colette', 'Hellwing', '2025-11-03', 451.9, true, '349 69 21 134', 'chellwing6@dion.ne.jp', 'e2A8Vzds', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (8, 'Jordana', 'Hardage', '2025-10-17', 562.04, false, '315 61 78 212', 'jhardage7@uol.com.br', 'rqISmJ9F', 1);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (9, 'Pyotr', 'Finn', '2025-08-19', 704.42, false, '326 93 41 643', 'pfinn8@creativecommons.org', '252Rbz44', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (10, 'Alikee', 'Turbat', '2025-08-08', 422.11, true, '302 74 36 489', 'aturbat9@purevolume.com', 'd6hO8BKO', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (11, 'Karalynn', 'Wilhelmy', '2025-07-26', 197.59, false, '383 83 37 909', 'kwilhelmya@webmd.com', 'B80f3mL9', 3);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (12, 'Ursala', 'Leedes', '2025-05-09', 148.45, true, '363 22 04 972', 'uleedesb@opensource.org', 'Q669S2Wx', 1);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (13, 'Sasha', 'Havile', '2026-02-03', 635.61, false, '315 15 16 372', 'shavilec@linkedin.com', 'FPD5Xt9n', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (14, 'Hastie', 'Lingard', '2025-09-07', 575.9, false, '377 94 91 914', 'hlingardd@ifeng.com', 'fGs3NqYG', 3);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (15, 'Bettina', 'Swancock', '2025-09-14', 857.27, false, '396 86 11 342', 'bswancocke@usatoday.com', '6A7rIwZj', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (16, 'Lisetta', 'Hechlin', '2025-07-19', 368.9, false, '368 01 33 441', 'lhechlinf@senate.gov', 'YtVbV7x5', 2);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (17, 'Loise', 'Jerdein', '2025-10-10', 211.58, true, '342 09 18 857', 'ljerdeing@census.gov', 'EyVYjSHc', 3);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (18, 'Jedidiah', 'Tilly', '2025-10-16', 825.63, true, '348 60 19 495', 'jtillyh@jiathis.com', 'xCs5V5A3', 1);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (19, 'Eadmund', 'Catlin', '2025-05-19', 218.05, true, '365 71 57 099', 'ecatlini@forbes.com', 'rwc4Vgzv', 1);
+insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (20, 'Gaile', 'Dimock', '2025-04-19', 294.58, false, '350 88 10 004', 'gdimockj@live.com', '3Q13dT3O', 3);
 
 insert into category (id, name, description) values (1, 'Documentary', 'sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus');
 insert into category (id, name, description) values (2, 'Comedy|Horror', 'primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor');
