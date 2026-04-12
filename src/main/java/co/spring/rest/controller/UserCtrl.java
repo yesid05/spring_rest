@@ -1,16 +1,21 @@
 package co.spring.rest.controller;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import co.spring.rest.entity.bo.Role;
 import co.spring.rest.entity.dto.UserDto;
+import co.spring.rest.service.AuthServ;
 import co.spring.rest.service.UserServ;
 import jakarta.validation.Valid;
 
@@ -23,12 +28,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
+@PreAuthorize("hasRole('"+Role.ROLE_ADMINISTRATOR+"')")
 @RestController
 @RequestMapping("/api/user")
 public class UserCtrl {
 
     @Autowired
     private UserServ userServ;
+
+    @Autowired
+    private AuthServ authServ;
 
     @GetMapping()    
     public ResponseEntity<Map<String, Object>> getListUsers(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize, @RequestParam(required = false) String direction, @RequestParam(required = false) String sort){
@@ -63,18 +72,16 @@ public class UserCtrl {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDto> add() {
+    public ResponseEntity<UserDto> add(@Valid @RequestBody UserDto userDto, UriComponentsBuilder uriComponentsBuilder) {
         
-        // UserDto aUser = userServ.add(user);
+        UserDto aUser = authServ.registerUser(userDto);
 
-        // if(aUser==null)
-        //     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(aUser==null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        // URI uri = uriComponentsBuilder.path("/api/auth/login").build().toUri();
+        URI uri = uriComponentsBuilder.path("/api/auth/login").build().toUri();
         
-        // return ResponseEntity.created(uri).body(aUser);
-        
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.created(uri).body(aUser);
 
     }
 

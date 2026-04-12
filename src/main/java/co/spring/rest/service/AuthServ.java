@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import co.spring.rest.entity.bo.Role;
 import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.RoleDto;
 import co.spring.rest.entity.dto.UserDto;

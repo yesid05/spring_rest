@@ -76,7 +76,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}user/search?salary=706.06",
+              "raw": "{{url}}user/search?salary=200.00",
               "host": [
                 "{{url}}user"
               ],
@@ -86,7 +86,7 @@
               "query": [
                 {
                   "key": "salary",
-                  "value": "706.06"
+                  "value": "200.00"
                 }
               ]
             }
@@ -100,7 +100,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\"\n}",
+              "raw": "{\n    \"id\": 22,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe.1@example.com\",\n    \"password\": \"Aa123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -123,7 +123,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": 21,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$100\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe.1@example.com\",\n    \"password\": \"Aa123456789\"\n}",
+              "raw": "{\n    \"id\": 22,\n    \"name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"birth_day\": \"2025-10-06\",\n    \"salary\": \"$200\",\n    \"active\": true,\n    \"phone_number\": \"313 41 75 206\",\n    \"email\": \"john.doe.1@example.com\",\n    \"password\": \"Aa123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -131,12 +131,12 @@
               }
             },
             "url": {
-              "raw": "{{url}}user/21",
+              "raw": "{{url}}user/22",
               "host": [
                 "{{url}}user"
               ],
               "path": [
-                "21"
+                "22"
               ]
             }
           },
@@ -183,12 +183,12 @@
               }
             },
             "url": {
-              "raw": "{{url}}user/21",
+              "raw": "{{url}}user/22",
               "host": [
                 "{{url}}user"
               ],
               "path": [
-                "21"
+                "22"
               ]
             }
           },
@@ -209,14 +209,14 @@
               }
             },
             "url": {
-              "raw": "{{url}}user?salary=706.06",
+              "raw": "{{url}}user?salary=200.00",
               "host": [
                 "{{url}}user"
               ],
               "query": [
                 {
                   "key": "salary",
-                  "value": "706.06"
+                  "value": "200.00"
                 }
               ]
             }
@@ -267,12 +267,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}product/201",
+              "raw": "{{url}}product/200",
               "host": [
                 "{{url}}product"
               ],
               "path": [
-                "201"
+                "200"
               ]
             }
           },
@@ -285,7 +285,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"id\": \"201\",\n    \"name\": \"Yesid\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"Http://dummyimage.com/674x222.png/5fa2dd/ffffff\",\n    \"category\": {\n        \"id\": 1\n    }\n}",
+              "raw": "{\n    \"id\": \"201\",\n    \"name\": \"Product\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"http://dummyimage.com/674x222.png/5fa2dd/ffffff\",\n    \"category\": {\n        \"id\": 1\n    }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -308,7 +308,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"John Doe\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"http://dummyimage.com/674x222.png/5fa2dd/ffffff\",\n    \"category\": {\n        \"id\": \"2\"\n    }\n}",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"description\": \"API Request Body for POST request\",\n    \"release_date\": \"2023-04-01\",\n    \"img\": \"http://dummyimage.com/674x222.png/5fa2dd/ffffff\",\n    \"category\": {\n        \"id\": 10\n    }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -316,12 +316,12 @@
               }
             },
             "url": {
-              "raw": "{{url}}product/1",
+              "raw": "{{url}}product/201",
               "host": [
                 "{{url}}product"
               ],
               "path": [
-                "1"
+                "201"
               ]
             }
           },
@@ -394,12 +394,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}category/11",
+              "raw": "{{url}}category/10",
               "host": [
                 "{{url}}category"
               ],
               "path": [
-                "11"
+                "10"
               ]
             }
           },
@@ -443,12 +443,12 @@
               }
             },
             "url": {
-              "raw": "{{url}}category/11",
+              "raw": "{{url}}category/10",
               "host": [
                 "{{url}}category"
               ],
               "path": [
-                "11"
+                "10"
               ]
             }
           },
@@ -487,7 +487,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"Aa123456789\"\n}",
+              "raw": "{\n    \"email\": \"john.doe.1@example.com\",\n    \"password\": \"Aa123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -620,7 +620,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsIm5hbWUiOiJKb2huIiwiaWF0IjoxNzc1NjE0MDkxLCJleHAiOjE3NzU2MTQyMTF9.xrKuvkMEvYU1c0up67cUIfHtTpEkRf_691M3Th0Plg6zqdHnZfYLRVqowyXiuDk48ttv2kMO40OCtLAGknaTNQ",
+        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZS4xQGV4YW1wbGUuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwibmFtZSI6IkpvaG4iLCJwZXJtaXNzaW9uIjpbeyJuYW1lIjoiUkVBRCJ9XSwiaWF0IjoxNzc1OTk3NTQzLCJleHAiOjE3NzU5OTc2NjN9.uxHJRu2FmY8XLwcrmeVYSmy0hvrk0M5do2mdpbP_3XCEoz9qlcPeodvaZ3VsD_C7Dpms2Frhu9heoMUYfg8WDw",
         "type": "string"
       }
     ]

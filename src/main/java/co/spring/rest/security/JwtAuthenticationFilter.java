@@ -1,9 +1,11 @@
 package co.spring.rest.security;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -54,7 +56,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         UserDto userDto = userServ.findByEmail(email);
         User aUser = userMapper.toUser(userDto);
 
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(aUser, null,aUser.getAuthorities());
+        String role = jwtServ.getClaims(jwt).get("role", String.class);
+
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(aUser, null,List.of(new SimpleGrantedAuthority("ROLE_"+role)));
 
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

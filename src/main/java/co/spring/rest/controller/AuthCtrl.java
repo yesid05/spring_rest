@@ -21,6 +21,7 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
+@PreAuthorize("permitAll")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthCtrl {
@@ -46,6 +48,7 @@ public class AuthCtrl {
     @Autowired
     private JwtServ jwtServ;
 
+    @PreAuthorize("isAuthenticated")
     @GetMapping()
     public ResponseEntity<UserDto> profile() {
         
