@@ -1,10 +1,6 @@
 package co.spring.rest.entity.dto;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,14 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RoleDto {
+public class PermissionDto {
 
     @JsonIgnore
     private long id;
 
     private String name;
-
-    @JsonInclude(value = Include.NON_NULL)
-    private List<PermissionDto> permissionDtos;
 
 }

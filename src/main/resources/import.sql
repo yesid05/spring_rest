@@ -6,6 +6,21 @@ insert into role (id, name) values (1, 'ADMINISTRATOR');
 insert into role (id, name) values (2, 'OPERATOR');
 insert into role (id, name) values (3, 'CUSTOMER');
 
+insert into permission (id, name) values (1, 'CREATE');
+insert into permission (id, name) values (2, 'READ');
+insert into permission (id, name) values (3, 'UPDATE');
+insert into permission (id, name) values (4, 'DELETE');
+
+insert into role_permission (id_role, id_permission) values (1, 1);
+insert into role_permission (id_role, id_permission) values (1, 2);
+insert into role_permission (id_role, id_permission) values (1, 3);
+insert into role_permission (id_role, id_permission) values (1, 4);
+
+insert into role_permission (id_role, id_permission) values (2, 2);
+insert into role_permission (id_role, id_permission) values (2, 3);
+
+insert into role_permission (id_role, id_permission) values (3, 2);
+
 insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (1, 'Lelia', 'Conahy', '2025-06-22', 876.69, true, '332 58 25 250', 'lconahy0@si.edu', 'EkwxnQE4', 1);
 insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (2, 'Bria', 'Mabone', '2025-09-17', 270.42, false, '334 07 33 615', 'bmabone1@census.gov', 'ZGKBd0hB', 2);
 insert into customer (id, name, last_name, birth_day, salary, active, phone_number, email, password, id_role) values (3, 'Lamond', 'Uppett', '2025-06-18', 202.61, true, '352 17 25 489', 'luppett2@google.ru', 'PkWMqk68', 3);

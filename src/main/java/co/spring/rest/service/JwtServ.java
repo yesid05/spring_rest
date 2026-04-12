@@ -3,6 +3,7 @@ package co.spring.rest.service;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.crypto.SecretKey;
@@ -13,6 +14,8 @@ import org.springframework.util.StringUtils;
 
 import co.spring.rest.config.JwtConfig;
 import co.spring.rest.entity.dto.JwtDto;
+import co.spring.rest.entity.dto.PermissionDto;
+import co.spring.rest.entity.dto.RoleDto;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.iservice.IJwtServ;
 import io.jsonwebtoken.Claims;
@@ -23,6 +26,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class JwtServ implements IJwtServ{
+
+    @Autowired
+    private RoleServ roleServ;
 
     @Autowired
     private JwtConfig jwtConfig;
@@ -46,8 +52,11 @@ public class JwtServ implements IJwtServ{
 
         Map<String, Object> claims = new HashMap<>();
 
+        RoleDto roleDto = roleServ.findByName(userDto.getRoleDto().getName());
+
         claims.put("name", userDto.getName());
-        claims.put("role", userDto.getRoleDto().getName());
+        claims.put("role", roleDto.getName());
+        claims.put("permission", roleDto.getPermissionDtos());
 
         Date currentTime = new Date(System.currentTimeMillis());
         
