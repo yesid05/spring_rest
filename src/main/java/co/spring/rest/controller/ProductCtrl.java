@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import co.spring.rest.entity.bo.Permission;
 import co.spring.rest.entity.bo.Role;
 import co.spring.rest.entity.dto.ProductDto;
 import co.spring.rest.service.ProductServ;
@@ -31,7 +32,7 @@ public class ProductCtrl {
     @Autowired
     private ProductServ productServ;
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"','"+Role.ROLE_OPERATOR+"','"+Role.ROLE_CUSTOMER+"')")
+    @PreAuthorize("hasAuthority('"+Permission.READ+"')")
     @GetMapping
     public ResponseEntity<Map<String, Object>> getListProduct(@RequestParam(required = false) Integer pageNumber,@RequestParam(required = false) Integer pageSize, @RequestParam(required = false) String direction,@RequestParam(required = false) String sort) {
 
@@ -40,7 +41,7 @@ public class ProductCtrl {
         return ResponseEntity.ok(mapProductDto);
     }
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"','"+Role.ROLE_OPERATOR+"','"+Role.ROLE_CUSTOMER+"')")
+    @PreAuthorize("hasAuthority('"+Permission.READ+"')")
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> findById(@PathVariable long id) {
         
@@ -52,7 +53,7 @@ public class ProductCtrl {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"')")
+    @PreAuthorize("hasAuthority('"+Permission.CREATE+"')")
     @PostMapping()
     public ResponseEntity<ProductDto> add(@Valid @RequestBody ProductDto product, UriComponentsBuilder uriComponentsBuilder) {
         ProductDto aProductDto = productServ.add(product);
@@ -65,7 +66,7 @@ public class ProductCtrl {
         return ResponseEntity.created(uri).body(aProductDto);
     }
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"','"+Role.ROLE_OPERATOR+"')")
+    @PreAuthorize("hasAuthority('"+Permission.UPDATE+"')")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable long id, @Valid @RequestBody ProductDto product) {
         
@@ -78,7 +79,7 @@ public class ProductCtrl {
 
     }
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"')")
+    @PreAuthorize("hasAuthority('"+Permission.DELETE+"')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id){
 

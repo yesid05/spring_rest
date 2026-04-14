@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import co.spring.rest.entity.bo.Permission;
 import co.spring.rest.entity.bo.Role;
 import co.spring.rest.entity.dto.CategoryDto;
 import co.spring.rest.service.CategoryServ;
@@ -31,7 +32,7 @@ public class CategoryCtrl {
     @Autowired
     private CategoryServ categoryServ;
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"','"+Role.ROLE_OPERATOR+"','"+Role.ROLE_CUSTOMER+"')")
+    @PreAuthorize("hasAuthority('"+Permission.READ+"')")
     @GetMapping
     public ResponseEntity<?> getListCategory(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize, @RequestParam(required = false) String direction, @RequestParam(required = false) String sort){
         
@@ -41,7 +42,7 @@ public class CategoryCtrl {
 
     }
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"','"+Role.ROLE_OPERATOR+"','"+Role.ROLE_CUSTOMER+"')")
+    @PreAuthorize("hasAuthority('"+Permission.READ+"')")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable long id){
 
@@ -53,7 +54,7 @@ public class CategoryCtrl {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"')")
+    @PreAuthorize("hasAuthority('"+Permission.CREATE+"')")
     @PostMapping()
     public ResponseEntity<?> add(@Valid @RequestBody CategoryDto category,UriComponentsBuilder uriComponentsBuilder){
 
@@ -67,7 +68,7 @@ public class CategoryCtrl {
         return ResponseEntity.created(uri).body(aCategoryDto);
     }
 
-     @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"','"+Role.ROLE_OPERATOR+"')")
+    @PreAuthorize("hasAuthority('"+Permission.UPDATE+"')")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable long id, @Valid @RequestBody CategoryDto category){
 
@@ -79,7 +80,7 @@ public class CategoryCtrl {
         return ResponseEntity.ok(aCategoryDto);
     }
 
-    @PreAuthorize("hasAnyRole('"+Role.ROLE_ADMINISTRATOR+"')")
+    @PreAuthorize("hasAuthority('"+Permission.DELETE+"')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id){
         
