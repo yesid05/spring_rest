@@ -1,13 +1,11 @@
 package co.spring.rest.controller;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import co.spring.rest.entity.bo.Permission;
-import co.spring.rest.entity.bo.Role;
 import co.spring.rest.entity.dto.CategoryDto;
 import co.spring.rest.service.CategoryServ;
 import jakarta.validation.Valid;
@@ -32,7 +28,6 @@ public class CategoryCtrl {
     @Autowired
     private CategoryServ categoryServ;
 
-    @PreAuthorize("hasAuthority('"+Permission.READ+"')")
     @GetMapping
     public ResponseEntity<?> getListCategory(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize, @RequestParam(required = false) String direction, @RequestParam(required = false) String sort){
         
@@ -42,7 +37,6 @@ public class CategoryCtrl {
 
     }
 
-    @PreAuthorize("hasAuthority('"+Permission.READ+"')")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable long id){
 
@@ -54,7 +48,6 @@ public class CategoryCtrl {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PreAuthorize("hasAuthority('"+Permission.CREATE+"')")
     @PostMapping()
     public ResponseEntity<?> add(@Valid @RequestBody CategoryDto category,UriComponentsBuilder uriComponentsBuilder){
 
@@ -68,7 +61,6 @@ public class CategoryCtrl {
         return ResponseEntity.created(uri).body(aCategoryDto);
     }
 
-    @PreAuthorize("hasAuthority('"+Permission.UPDATE+"')")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable long id, @Valid @RequestBody CategoryDto category){
 
@@ -80,7 +72,6 @@ public class CategoryCtrl {
         return ResponseEntity.ok(aCategoryDto);
     }
 
-    @PreAuthorize("hasAuthority('"+Permission.DELETE+"')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id){
         

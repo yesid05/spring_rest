@@ -1,14 +1,10 @@
 package co.spring.rest.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -61,19 +57,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         User aUser = userMapper.toUser(userDto);
 
         String aRole = jwtServ.getClaims(jwt).get("role", String.class);
-
-        List<Map<String,String>> permissions = jwtServ.getClaims(jwt).get("permission", ArrayList.class);
-
-        List<GrantedAuthority> listGrantedAuthorities = permissions.stream()
-            .map(mapPermission -> {
-                String aPermission = mapPermission.get("name");
-                return new SimpleGrantedAuthority(aPermission);
-            })
-            .collect(Collectors.toList());
         
-        listGrantedAuthorities.add(new SimpleGrantedAuthority("ROLE_"+aRole));
-        
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(aUser, null,listGrantedAuthorities);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(aUser, null,List.of(new SimpleGrantedAuthority("ROLE_"+aRole)));
 
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

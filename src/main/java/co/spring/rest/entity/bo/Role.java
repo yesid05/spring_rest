@@ -23,11 +23,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "role")
 public class Role {
 
-    public static final String ROLE_ADMINISTRATOR = "ROLE_ADMINISTRATOR";
+    public static final String ROLE_ADMINISTRATOR = "ADMINISTRATOR";
 
-    public static final String ROLE_OPERATOR = "ROLE_OPERATOR";
+    public static final String ROLE_OPERATOR = "OPERATOR";
 
-    public static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
+    public static final String ROLE_CUSTOMER = "CUSTOMER";
 
     @Id
     private long id;
