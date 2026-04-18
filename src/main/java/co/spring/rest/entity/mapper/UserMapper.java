@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.UserDto;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {RoleMapper.class})
 public interface UserMapper {
 
     @Mappings({

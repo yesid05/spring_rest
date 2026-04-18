@@ -1,6 +1,6 @@
 package co.spring.rest.entity.bo;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -34,6 +34,6 @@ public class Permission {
     private String name;
 
     @ManyToMany(mappedBy = "permissions")
-    private Set<Role> role;
+    private List<Role> role;
 
 }

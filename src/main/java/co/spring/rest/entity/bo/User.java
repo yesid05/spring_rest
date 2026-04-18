@@ -2,10 +2,12 @@ package co.spring.rest.entity.bo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
@@ -56,7 +58,26 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+
+        Collection<GrantedAuthority> permissions = new ArrayList<>();
+
+        if(role == null)
+            return permissions;
+
+        if(role.getPermissions() == null){
+            permissions.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
+            return permissions;
+        }
+
+        permissions = role.getPermissions()
+            .stream()
+            .map(permission -> new SimpleGrantedAuthority(permission.getName()))
+            .collect(Collectors.toList());
+
+        
+        permissions.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
+
+        return permissions;
     }
 
     @Override

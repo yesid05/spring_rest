@@ -2,6 +2,7 @@ package co.spring.rest.entity.bo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -34,7 +35,7 @@ public class Role {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
         name = "role_permission",
         joinColumns = @JoinColumn(name = "id_role"),
