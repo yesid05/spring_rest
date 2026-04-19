@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import co.spring.rest.entity.bo.Permission;
@@ -29,6 +30,9 @@ public class SecurityConfig {
 
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -55,10 +59,11 @@ public class SecurityConfig {
                 c.requestMatchers(HttpMethod.PUT,"/api/category/**").hasAuthority(Permission.UPDATE);
                 c.requestMatchers(HttpMethod.DELETE,"/api/category/**").hasAuthority(Permission.DELETE);
 
-                c.requestMatchers("/api/auth/**").permitAll();
+                c.requestMatchers("/api/auth/**").permitAll();  
             })
             .exceptionHandling(exception -> {
                 exception.authenticationEntryPoint(authenticationEntryPoint);
+                exception.accessDeniedHandler(accessDeniedHandler);
             });
 
         return httpSecurity.build();
