@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -25,6 +26,9 @@ public class SecurityConfig {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -52,6 +56,9 @@ public class SecurityConfig {
                 c.requestMatchers(HttpMethod.DELETE,"/api/category/**").hasAuthority(Permission.DELETE);
 
                 c.requestMatchers("/api/auth/**").permitAll();
+            })
+            .exceptionHandling(exception -> {
+                exception.authenticationEntryPoint(authenticationEntryPoint);
             });
 
         return httpSecurity.build();
