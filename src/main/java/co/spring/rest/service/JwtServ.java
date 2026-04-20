@@ -3,7 +3,6 @@ package co.spring.rest.service;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.crypto.SecretKey;
@@ -13,8 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import co.spring.rest.config.JwtConfig;
-import co.spring.rest.entity.dto.JwtDto;
+import co.spring.rest.entity.bo.JsonWebTokenAccess;
+import co.spring.rest.entity.dto.JsonWebTokenAccessDto;
 import co.spring.rest.entity.dto.UserDto;
+import co.spring.rest.entity.mapper.JsonWebTokenAccessMapper;
+import co.spring.rest.entity.repository.IJsonWebTokenAccessRepository;
 import co.spring.rest.iservice.IJwtServ;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -28,16 +30,30 @@ public class JwtServ implements IJwtServ{
     @Autowired
     private JwtConfig jwtConfig;
 
+    @Autowired
+    private JsonWebTokenAccessMapper jsonWebTokenAccessMapper;
+
+    @Autowired
+    private IJsonWebTokenAccessRepository iJsonWebTokenAccessRepository;
+
     @Override
-    public JwtDto generateAccessToken(UserDto userDto) {
+    public JsonWebTokenAccessDto generateAccessToken(UserDto userDto) {
         
         String token = generateToken(userDto, jwtConfig.getExpirationAccessTokenMinute());
 
-        return new JwtDto(userDto.getEmail(), token);
+        JsonWebTokenAccessDto jsonWebTokenAccessDto = new JsonWebTokenAccessDto();
+        jsonWebTokenAccessDto.setToken(token);
+        jsonWebTokenAccessDto.setUserDto(userDto);
+        jsonWebTokenAccessDto.setActive(true);
+
+        JsonWebTokenAccess jsonWebTokenAccess = iJsonWebTokenAccessRepository.save(jsonWebTokenAccessMapper.toJsonWebTokenAccess(jsonWebTokenAccessDto));
+
+        return jsonWebTokenAccessMapper.toJsonWebTokenAccessDto(jsonWebTokenAccess);
     }
 
     @Override
     public String generateRefreshToken(UserDto userDto) {
+
         return generateToken(userDto, jwtConfig.getExpirationRefreshTokenMinute());
     }
 

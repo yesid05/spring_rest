@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,6 +57,9 @@ public class User implements UserDetails{
     @ManyToOne
     @JoinColumn(name = "id_role")
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<JsonWebTokenAccess> jsonWebTokenAccesses;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

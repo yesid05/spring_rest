@@ -6,7 +6,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import co.spring.rest.config.JwtConfig;
 import co.spring.rest.entity.bo.User;
-import co.spring.rest.entity.dto.JwtDto;
+import co.spring.rest.entity.dto.JsonWebTokenAccessDto;
 import co.spring.rest.entity.dto.LoginDto;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.service.AuthServ;
@@ -76,11 +76,11 @@ public class AuthCtrl {
     
 
     @PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginDto loginDto, HttpServletResponse response) {
+    public ResponseEntity<JsonWebTokenAccessDto> login(@Valid @RequestBody LoginDto loginDto, HttpServletResponse response) {
         
         UserDto userDto = authServ.login(loginDto.getEmail(), loginDto.getPassword());
 
-        JwtDto jwtDto = jwtServ.generateAccessToken(userDto);
+        JsonWebTokenAccessDto jsonWebTokenAccessDto = jwtServ.generateAccessToken(userDto);
 
         String refreshToken = jwtServ.generateRefreshToken(userDto);
 
@@ -92,12 +92,12 @@ public class AuthCtrl {
 
         response.addCookie(cookie);
 
-        return ResponseEntity.ok(jwtDto);
+        return ResponseEntity.ok(jsonWebTokenAccessDto);
 
     }  
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<JwtDto> refreshToken(@CookieValue(value = "refreshToken") String cookie) {
+    public ResponseEntity<JsonWebTokenAccessDto> refreshToken(@CookieValue(value = "refreshToken") String cookie) {
         
         if(!jwtServ.validateToken(cookie))
             throw new BadCredentialsException("Invalid credentials");
@@ -106,9 +106,9 @@ public class AuthCtrl {
 
         UserDto userDto = userServ.findByEmail(email);
 
-        JwtDto jwtDto = jwtServ.generateAccessToken(userDto);
+        JsonWebTokenAccessDto jsonWebTokenAccessDto = jwtServ.generateAccessToken(userDto);
 
-        return ResponseEntity.ok(jwtDto);
+        return ResponseEntity.ok(jsonWebTokenAccessDto);
     }
     
 

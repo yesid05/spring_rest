@@ -2,14 +2,14 @@ package co.spring.rest.iservice;
 
 import java.security.Key;
 
-import co.spring.rest.entity.dto.JwtDto;
+import co.spring.rest.entity.dto.JsonWebTokenAccessDto;
 import co.spring.rest.entity.dto.UserDto;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface IJwtServ {
 
-    JwtDto generateAccessToken(UserDto userDto);
+    JsonWebTokenAccessDto generateAccessToken(UserDto userDto);
 
     String generateRefreshToken(UserDto userDto);
 
