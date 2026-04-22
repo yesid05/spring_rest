@@ -13,10 +13,14 @@ import org.springframework.util.StringUtils;
 
 import co.spring.rest.config.JwtConfig;
 import co.spring.rest.entity.bo.JsonWebTokenAccess;
+import co.spring.rest.entity.bo.JsonWebTokenRefresh;
 import co.spring.rest.entity.dto.JsonWebTokenAccessDto;
+import co.spring.rest.entity.dto.JsonWebTokenRefreshDto;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.entity.mapper.JsonWebTokenAccessMapper;
+import co.spring.rest.entity.mapper.JsonWebTokenRefreshMapper;
 import co.spring.rest.entity.repository.IJsonWebTokenAccessRepository;
+import co.spring.rest.entity.repository.IJsonWebTokenRefreshRepository;
 import co.spring.rest.iservice.IJwtServ;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -36,6 +40,12 @@ public class JwtServ implements IJwtServ{
     @Autowired
     private IJsonWebTokenAccessRepository iJsonWebTokenAccessRepository;
 
+    @Autowired
+    private JsonWebTokenRefreshMapper jsonWebTokenRefreshMapper;
+
+    @Autowired
+    private IJsonWebTokenRefreshRepository iJsonWebTokenRefreshRepository;
+
     @Override
     public JsonWebTokenAccessDto generateAccessToken(UserDto userDto) {
         
@@ -54,7 +64,16 @@ public class JwtServ implements IJwtServ{
     @Override
     public String generateRefreshToken(UserDto userDto) {
 
-        return generateToken(userDto, jwtConfig.getExpirationRefreshTokenMinute());
+        String token = generateToken(userDto, jwtConfig.getExpirationRefreshTokenMinute());
+
+        JsonWebTokenRefreshDto jsonWebTokenRefreshDto = new JsonWebTokenRefreshDto();
+        jsonWebTokenRefreshDto.setToken(token);
+        jsonWebTokenRefreshDto.setUserDto(userDto);
+        jsonWebTokenRefreshDto.setActive(true);
+
+        JsonWebTokenRefresh jsonWebTokenRefresh = iJsonWebTokenRefreshRepository.save(jsonWebTokenRefreshMapper.toJsonWebTokenRefresh(jsonWebTokenRefreshDto));
+
+        return jsonWebTokenRefreshMapper.toJsonWebTokenRefreshDto(jsonWebTokenRefresh).getToken();
     }
 
 
