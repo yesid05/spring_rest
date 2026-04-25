@@ -12,7 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import co.spring.rest.entity.bo.User;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.entity.mapper.UserMapper;
-import co.spring.rest.service.JwtServ;
+import co.spring.rest.service.JsonWebTokenAccessServ;
 import co.spring.rest.service.UserServ;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     @Autowired
-    private JwtServ jwtServ;
+    private JsonWebTokenAccessServ jsonWebTokenAccessServ;
 
     @Autowired
     private UserServ userServ;
@@ -35,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String jwt = jwtServ.getTokenRequest(request);
+        String jwt = jsonWebTokenAccessServ.getTokenRequest(request);
     
         if(jwt == null){
             filterChain.doFilter(request, response);
@@ -43,13 +43,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
             return;
         }
 
-        if(!jwtServ.validateToken(jwt)){
+        if(!jsonWebTokenAccessServ.validateToken(jwt)){
             filterChain.doFilter(request, response);
             System.out.println("JwtAuthenticationFilter: Token no validate");
             return;
         }
 
-        String email = jwtServ.getClaims(jwt).getSubject();
+        String email = jsonWebTokenAccessServ.getClaims(jwt).getSubject();
 
         UserDto userDto = userServ.findByEmail(email);
         User aUser = userMapper.toUser(userDto);

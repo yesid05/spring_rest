@@ -10,7 +10,8 @@ import co.spring.rest.entity.dto.JsonWebTokenAccessDto;
 import co.spring.rest.entity.dto.LoginDto;
 import co.spring.rest.entity.dto.UserDto;
 import co.spring.rest.service.AuthServ;
-import co.spring.rest.service.JwtServ;
+import co.spring.rest.service.JsonWebTokenAccessServ;
+import co.spring.rest.service.JsonWebTokenRefreshServ;
 import co.spring.rest.service.UserServ;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,11 +41,14 @@ public class AuthCtrl {
     @Autowired
     private UserServ userServ;
 
-    @Autowired
+    @Autowired  
     private JwtConfig jwtConfig;
 
     @Autowired
-    private JwtServ jwtServ;
+    private JsonWebTokenAccessServ jsonWebTokenAccessServ;
+
+    @Autowired
+    private JsonWebTokenRefreshServ jsonWebTokenRefreshServ;
 
     @GetMapping()
     public ResponseEntity<UserDto> profile() {
@@ -80,9 +84,9 @@ public class AuthCtrl {
         
         UserDto userDto = authServ.login(loginDto.getEmail(), loginDto.getPassword());
 
-        JsonWebTokenAccessDto jsonWebTokenAccessDto = jwtServ.generateAccessToken(userDto);
+        JsonWebTokenAccessDto jsonWebTokenAccessDto = jsonWebTokenAccessServ.generateAccessToken(userDto);
 
-        String refreshToken = jwtServ.generateRefreshToken(userDto);
+        String refreshToken = jsonWebTokenRefreshServ.generateRefreshToken(userDto);
 
         Cookie cookie = new Cookie("refreshToken", refreshToken);
         cookie.setHttpOnly(true);
@@ -99,14 +103,14 @@ public class AuthCtrl {
     @PostMapping("/refresh-token")
     public ResponseEntity<JsonWebTokenAccessDto> refreshToken(@CookieValue(value = "refreshToken") String cookie) {
         
-        if(!jwtServ.validateToken(cookie))
+        if(!jsonWebTokenRefreshServ.validateToken(cookie))
             throw new BadCredentialsException("Invalid credentials");
 
-        String email = jwtServ.getClaims(cookie).getSubject();
+        String email = jsonWebTokenRefreshServ.getClaims(cookie).getSubject();
 
         UserDto userDto = userServ.findByEmail(email);
 
-        JsonWebTokenAccessDto jsonWebTokenAccessDto = jwtServ.generateAccessToken(userDto);
+        JsonWebTokenAccessDto jsonWebTokenAccessDto = jsonWebTokenAccessServ.generateAccessToken(userDto);
 
         return ResponseEntity.ok(jsonWebTokenAccessDto);
     }
@@ -117,7 +121,7 @@ public class AuthCtrl {
         
         String aToken = header.replace("Bearer ", "");
         
-        boolean isValidate = jwtServ.validateToken(aToken);
+        boolean isValidate = jsonWebTokenAccessServ.validateToken(aToken);
 
         return ResponseEntity.ok(isValidate);
     }
