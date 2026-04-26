@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
             return;
         }
 
-        if(!jsonWebTokenAccessServ.validateToken(jwt)){
+        if(!jsonWebTokenAccessServ.validateToken(jwt) || !jsonWebTokenAccessServ.isActiveToken(jwt)){
             filterChain.doFilter(request, response);
             System.out.println("JwtAuthenticationFilter: Token no validate");
             return;

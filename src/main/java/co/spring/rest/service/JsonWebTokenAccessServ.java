@@ -33,5 +33,33 @@ public class JsonWebTokenAccessServ extends JwtServ implements IJsonWebTokenAcce
         return jsonWebTokenAccessMapper.toJsonWebTokenAccessDto(jsonWebTokenAccess);
     }
 
+    @Override
+    public boolean disableToken(String token) {
+        
+        boolean disableToken = false;
+
+        JsonWebTokenAccess jsonWebTokenAccess = iJsonWebTokenAccessRepository.findByToken(token).orElse(null);
+        
+        if(jsonWebTokenAccess != null){
+
+            jsonWebTokenAccess.setActive(disableToken);
+            iJsonWebTokenAccessRepository.save(jsonWebTokenAccess);
+
+            disableToken = true;
+
+        }
+
+        return disableToken;
+    }
+
+    @Override
+    public boolean isActiveToken(String token) {
+        
+        return iJsonWebTokenAccessRepository.findByToken(token)
+            .map(aToken -> aToken.isActive())
+            .orElse(false);
+
+    }
+
 
 }

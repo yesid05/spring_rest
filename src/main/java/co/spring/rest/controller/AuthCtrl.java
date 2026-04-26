@@ -103,7 +103,7 @@ public class AuthCtrl {
     @PostMapping("/refresh-token")
     public ResponseEntity<JsonWebTokenAccessDto> refreshToken(@CookieValue(value = "refreshToken") String cookie) {
         
-        if(!jsonWebTokenRefreshServ.validateToken(cookie))
+        if(!jsonWebTokenRefreshServ.validateToken(cookie) || !jsonWebTokenRefreshServ.isActiveToken(cookie))
             throw new BadCredentialsException("Invalid credentials");
 
         String email = jsonWebTokenRefreshServ.getClaims(cookie).getSubject();

@@ -33,4 +33,33 @@ public class JsonWebTokenRefreshServ extends JwtServ implements IJsonWebTokenRef
         return jsonWebTokenRefreshMapper.toJsonWebTokenRefreshDto(jsonWebTokenRefresh).getToken();
     }
 
+    @Override
+    public boolean disableToken(String token) {
+        
+        boolean disableToken = false;
+
+        JsonWebTokenRefresh jsonWebTokenRefresh = iJsonWebTokenRefreshRepository.findByToken(token).orElse(null);
+
+        if(jsonWebTokenRefresh != null){
+
+            jsonWebTokenRefresh.setActive(disableToken);
+            iJsonWebTokenRefreshRepository.save(jsonWebTokenRefresh);
+
+            disableToken = true;
+
+        }
+
+
+        return disableToken;
+
+    }
+
+    @Override
+    public boolean isActiveToken(String token) {
+        
+        return iJsonWebTokenRefreshRepository.findByToken(token)
+            .map(aToken -> aToken.isActive()).orElse(false);
+
+    }
+
 }

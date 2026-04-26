@@ -18,4 +18,8 @@ public interface IJwtServ {
 
     boolean validateToken(String token);
 
+    boolean disableToken(String token);
+
+    boolean isActiveToken(String token);
+
 }

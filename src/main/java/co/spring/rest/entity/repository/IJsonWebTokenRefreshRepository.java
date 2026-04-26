@@ -3,5 +3,11 @@ package co.spring.rest.entity.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import co.spring.rest.entity.bo.JsonWebTokenRefresh;
+import java.util.Optional;
 
-public interface IJsonWebTokenRefreshRepository  extends JpaRepository<JsonWebTokenRefresh, Long>{}
+
+public interface IJsonWebTokenRefreshRepository  extends JpaRepository<JsonWebTokenRefresh, Long>{
+
+    Optional<JsonWebTokenRefresh> findByToken(String token);
+
+}

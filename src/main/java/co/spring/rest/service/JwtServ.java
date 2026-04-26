@@ -61,6 +61,7 @@ public abstract class JwtServ implements IJwtServ{
             return claims.getExpiration().after(new Date());
 
         } catch (JwtException e) {
+            disableToken(token);
             return false;
         }
 
@@ -86,7 +87,7 @@ public abstract class JwtServ implements IJwtServ{
 		}
 
         return aAuthorization.replace("Bearer ", "");
-        
+
     }
 
 }
