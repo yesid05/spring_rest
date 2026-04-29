@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import co.spring.rest.entity.bo.Permission;
 import co.spring.rest.entity.bo.Role;
@@ -33,6 +35,9 @@ public class SecurityConfig {
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    private LogoutHandler logoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -60,6 +65,16 @@ public class SecurityConfig {
                 c.requestMatchers(HttpMethod.DELETE,"/api/category/**").hasAuthority(Permission.DELETE);
 
                 c.requestMatchers("/api/auth/**").permitAll();  
+            })
+            .logout((l) -> {
+                l.logoutUrl("/api/auth/logout");
+                l.addLogoutHandler(logoutHandler);
+                l.logoutSuccessHandler((request,response,authentication) -> {
+                    response.setStatus(HttpStatus.ACCEPTED.value());
+                });
+                l.deleteCookies("JSESSIONID","refreshToken");
+                l.invalidateHttpSession(true);
+                l.clearAuthentication(true);
             })
             .exceptionHandling(exception -> {
                 exception.authenticationEntryPoint(authenticationEntryPoint);

@@ -507,6 +507,32 @@
           "response": []
         },
         {
+          "name": "logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}auth/logout",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "profile",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -620,7 +646,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZS4xQGV4YW1wbGUuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwibmFtZSI6IkpvaG4iLCJwZXJtaXNzaW9uIjpbeyJuYW1lIjoiUkVBRCJ9XSwiaWF0IjoxNzc1OTk3NTQzLCJleHAiOjE3NzU5OTc2NjN9.uxHJRu2FmY8XLwcrmeVYSmy0hvrk0M5do2mdpbP_3XCEoz9qlcPeodvaZ3VsD_C7Dpms2Frhu9heoMUYfg8WDw",
+        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsIm5hbWUiOiJKb2huIiwiaWF0IjoxNzc3NTE3MjEyLCJleHAiOjE3Nzc1MTczMzJ9.4iiAk9Wmt9FnHryjGqoL1TCMr9VGEeC_chGmqmAiOuYjigigakjHUol1P3XPSuYdtwC-_iAxXy4j2L8_hpXfdQ",
         "type": "string"
       }
     ]
